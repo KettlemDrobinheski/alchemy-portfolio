@@ -1,4 +1,4 @@
-﻿import { CodeXml, House, Layers3, Mail, Menu, UserRound, X } from 'lucide-react'
+import { CodeXml, House, Layers3, Mail, UserRound } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { AlchemyMark } from './AlchemyMark'
 
@@ -10,11 +10,11 @@ const links = [
   { id: 'contato', label: 'Contato', icon: Mail },
 ]
 
-export function Brand() {
+export function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <a className="brand" href="#inicio">
-      <AlchemyMark size={51} />
-      <span>ALCHEMY<small>Portfólio de Desenvolvimento</small></span>
+      <AlchemyMark size={compact ? 28 : 51} />
+      <span>ALCHEMY{!compact && <small>Portfólio de Desenvolvimento</small>}</span>
     </a>
   )
 }
@@ -24,6 +24,40 @@ export function Navbar({ environment }: { environment: 'projetos' | 'sobre' | 'h
   const [activeSection, setActiveSection] = useState('inicio')
   const toggle = useRef<HTMLButtonElement>(null)
   const header = useRef<HTMLElement>(null)
+  const navigation = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+
+    function closeFromOutside(event: MouseEvent) {
+      if (!(event.target instanceof Node)) return
+      if (toggle.current?.contains(event.target) || navigation.current?.contains(event.target)) return
+
+      if (navigation.current?.contains(document.activeElement)) toggle.current?.focus()
+      setOpen(false)
+    }
+
+    function closeFromEscape(event: KeyboardEvent) {
+      if (event.key !== 'Escape' || event.defaultPrevented) return
+
+      event.preventDefault()
+      setOpen(false)
+      toggle.current?.focus()
+    }
+
+    function closeOnNavigation() {
+      setOpen(false)
+    }
+
+    document.addEventListener('click', closeFromOutside)
+    document.addEventListener('keydown', closeFromEscape)
+    window.addEventListener('hashchange', closeOnNavigation)
+    return () => {
+      document.removeEventListener('click', closeFromOutside)
+      document.removeEventListener('keydown', closeFromEscape)
+      window.removeEventListener('hashchange', closeOnNavigation)
+    }
+  }, [open])
 
   useEffect(() => {
     if (environment) return
@@ -63,14 +97,9 @@ export function Navbar({ environment }: { environment: 'projetos' | 'sobre' | 'h
   }, [environment])
 
   return (
-    <header ref={header} className="site-header" onKeyDown={(event) => {
-      if (event.key === 'Escape' && open) {
-        setOpen(false)
-        toggle.current?.focus()
-      }
-    }}>
+    <header ref={header} className="site-header">
       <div className="shell header-inner">
-        <Brand />
+        <Brand compact />
         <button
           ref={toggle}
           className="menu-toggle"
@@ -78,19 +107,24 @@ export function Navbar({ environment }: { environment: 'projetos' | 'sobre' | 'h
           aria-label={open ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={open}
           aria-controls="navigation"
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpen((wasOpen) => !wasOpen)}
         >
-          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          <span className="menu-toggle-icon" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </span>
         </button>
-        <nav id="navigation" className={open ? 'navigation is-open' : 'navigation'} aria-label="Principal">
+        <nav ref={navigation} id="navigation" className="navigation" hidden={!open} aria-label="Principal">
           {links.map(({ id, label, icon: Icon }) => (
             <a key={id} href={id === 'inicio' ? '#inicio' : '#/' + id}
               aria-current={environment ? (id === environment ? 'page' : undefined) : (activeSection === id ? 'location' : undefined)}
               onClick={() => {
-              document.getElementById(id)?.focus({ preventScroll: true })
-              setActiveSection(id)
-              setOpen(false)
-            }}><Icon size={21} strokeWidth={1.6} aria-hidden="true" />{label}</a>
+                const destination = document.getElementById(id) ?? toggle.current
+                destination?.focus({ preventScroll: true })
+                setActiveSection(id)
+                setOpen(false)
+              }}><Icon size={21} strokeWidth={1.6} aria-hidden="true" />{label}</a>
           ))}
         </nav>
       </div>
