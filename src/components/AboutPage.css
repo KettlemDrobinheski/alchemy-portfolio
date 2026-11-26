@@ -1,0 +1,45 @@
+.about-scroll-page {
+  min-height: calc(100svh - 4.25rem);
+  padding-block: .75rem 1rem;
+  background: linear-gradient(#190e1c44, #190e1c44),
+    url('../assets/about-manuscripts.png') center / cover no-repeat #190e1c;
+}
+
+.about-scroll {
+  position: relative;
+  width: var(--reading-art-width);
+  aspect-ratio: 980 / 1352;
+  margin-inline: auto;
+  /* Fit the visible silhouette, excluding the transparent margins in the source PNG. */
+  background: url('../assets/about-scroll-cutout.png') 50% 44% / 104.49% 113.61% no-repeat;
+}
+
+.about-scroll-reading {
+  position: absolute;
+  inset: 12.5% 14% 11.5%;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  scrollbar-gutter: stable;
+  scrollbar-color: #925b3d #edc791;
+  padding: .3rem .6rem .5rem .25rem;
+  color: #382012;
+  font: .9375rem/1.5 var(--serif);
+}
+
+.about-scroll-reading:focus-visible {
+  outline: 2px solid #6d354e;
+  outline-offset: -2px;
+}
+
+.about-scroll-reading header { margin-bottom: 1rem; text-align: center; }
+.about-scroll-reading h1,
+.about-scroll-reading h2 {
+  margin: .85rem 0 .5rem;
+  color: #51283d;
+  font: 700 1em/1.4 var(--serif);
+  letter-spacing: normal;
+  text-shadow: none;
+}
+.about-scroll-reading h1 { margin-top: 0; }
+.about-scroll-reading h2::before { content: none; }
+.about-scroll-reading p + p { margin-top: .6rem; }

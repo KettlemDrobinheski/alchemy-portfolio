@@ -1,0 +1,18 @@
+.grimoire-stage-c { width: min(59rem, calc(100% - 2rem)); }
+.grimoire-stage-c .prototype-scene { aspect-ratio: 1.6; }
+.grimoire-stage-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 1rem;
+}
+.grimoire-stage-actions button { margin: 0; }
+.grimoire-stage-actions button[aria-disabled="true"] { opacity: .55; cursor: default; }
+.grimoire-stage-reading { min-height: 3.25rem; margin-top: .75rem; }
+.grimoire-stage-reading span { font-size: .85rem; }
+.grimoire-stage-reading p { margin: .2rem 0 0; font: 700 1.2rem Georgia, serif; }
+.grimoire-stage-actions a { color: inherit; padding: .6rem; text-underline-offset: .2em; }
+.grimoire-stage-actions a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+@media (max-width: 38rem) { .grimoire-stage-c .prototype-scene { aspect-ratio: 1; } }
