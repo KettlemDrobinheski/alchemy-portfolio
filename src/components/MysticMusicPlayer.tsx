@@ -1,5 +1,6 @@
 import { Music2, Pause, Play, SkipBack, SkipForward, Volume2, X } from 'lucide-react'
 import { useEffect, useImperativeHandle, useRef, useState, type Ref } from 'react'
+import musicMedallion from '../assets/music-medallion.jpg'
 import './MysticMusicPlayer.css'
 
 const tracks = [
@@ -128,9 +129,9 @@ export function MysticMusicPlayer({ ref }: { ref?: Ref<{ playOpeningTrack: () =>
             <Pause size={18} aria-hidden="true" />
           </button>
         )}
-        <button ref={disclosure} type="button" aria-label={open ? 'Fechar controles musicais' : 'Abrir controles musicais'}
+        <button ref={disclosure} className="mystic-music-medallion" type="button" aria-label={open ? 'Fechar controles musicais' : 'Abrir controles musicais'}
           aria-expanded={open} aria-controls="alchemy-music-controls" onClick={() => setOpen((wasOpen) => !wasOpen)}>
-          <Music2 size={19} aria-hidden="true" />
+          <img src={musicMedallion} alt="" width={192} height={192} />
         </button>
       </div>
       <div id="alchemy-music-controls" className="mystic-music-panel" data-open={open}>

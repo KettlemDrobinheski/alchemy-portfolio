@@ -101,6 +101,7 @@ export function Navbar({ environment, musicPlayer }: { musicPlayer: ReactNode; e
       <div className="shell header-inner">
         <Brand compact />
         {musicPlayer}
+        <span className="resume-preview">Currículo</span>
         <button
           ref={toggle}
           className="menu-toggle"
