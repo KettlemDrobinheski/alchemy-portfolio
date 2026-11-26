@@ -1,5 +1,5 @@
 import { Music2, Pause, Play, SkipBack, SkipForward, Volume2, X } from 'lucide-react'
-import { useEffect, useEffectEvent, useRef, useState } from 'react'
+import { useEffect, useImperativeHandle, useRef, useState, type Ref } from 'react'
 import './MysticMusicPlayer.css'
 
 const tracks = [
@@ -10,7 +10,7 @@ const tracks = [
   { title: 'Magic Fantasy Fairy Tale Music', artist: 'Andriih', file: 'magic-fairy-tale.mp3' },
 ]
 
-export function MysticMusicPlayer() {
+export function MysticMusicPlayer({ ref }: { ref?: Ref<{ playOpeningTrack: () => void }> }) {
   const player = useRef<HTMLAudioElement>(null)
   const playRequest = useRef(0)
   const container = useRef<HTMLElement>(null)
@@ -23,20 +23,10 @@ export function MysticMusicPlayer() {
   const [error, setError] = useState('')
   const track = tracks[trackIndex]
 
-  const startOpeningTrack = useEffectEvent(() => selectTrack(0, true))
-
   useEffect(() => {
     const audio = player.current
     const requests = playRequest
-    let cancelled = false
-
-    // React Strict Mode runs setup and cleanup once before the real setup.
-    queueMicrotask(() => {
-      if (!cancelled) startOpeningTrack()
-    })
-
     return () => {
-      cancelled = true
       requests.current++
       audio?.pause()
     }
@@ -97,6 +87,10 @@ export function MysticMusicPlayer() {
     audio.src = `${import.meta.env.BASE_URL}audio/${tracks[next].file}`
     play(audio)
   }
+
+  useImperativeHandle(ref, () => ({
+    playOpeningTrack: () => selectTrack(0, true),
+  }))
 
   function togglePlayback() {
     const audio = player.current
