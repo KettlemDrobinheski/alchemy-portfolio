@@ -1,0 +1,155 @@
+.mystic-music {
+  min-width: 0;
+  margin-inline-start: auto;
+  color: var(--heading);
+}
+
+.mystic-music-panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .3rem .9rem;
+  border: 1px solid #bc55f0;
+  border-radius: 2rem;
+  background: linear-gradient(110deg, rgb(42 13 58 / 94%), rgb(17 8 28 / 94%) 45%, rgb(41 13 56 / 94%));
+  box-shadow: inset 0 0 .85rem #962ace66, 0 0 .85rem #b539e450;
+}
+
+.mystic-music-panel::before,
+.mystic-music-panel::after {
+  position: absolute;
+  top: calc(50% - .19rem);
+  width: .38rem;
+  height: .38rem;
+  border: 1px solid #ffe19c;
+  background: #b958df;
+  box-shadow: 0 0 .45rem #ed81ff;
+  transform: rotate(45deg);
+  pointer-events: none;
+  content: '';
+}
+.mystic-music-panel::before { left: -.19rem; }
+.mystic-music-panel::after { right: -.19rem; }
+
+.mystic-music-symbol { flex: none; color: #ffd987; }
+.mystic-music-track { min-width: 0; line-height: 1.25; }
+.mystic-music-name { color: #ffe099; font: 600 .86rem var(--display); }
+.mystic-music-track strong,
+.mystic-music-track small { display: block; font-size: .74rem; }
+.mystic-music-track strong { overflow-wrap: anywhere; }
+.mystic-music-track small { color: var(--muted); }
+
+.mystic-music-controls,
+.mystic-music-volume,
+.mystic-music-compact { display: flex; align-items: center; gap: .2rem; }
+
+.mystic-music button {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: #ffe099;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mystic-music button:hover { background: #46215d; }
+.mystic-music .mystic-music-play,
+.mystic-music-compact button {
+  border-color: #c958eb;
+  background: #351146;
+  box-shadow: inset 0 0 .55rem #ad35d975;
+}
+.mystic-music[data-playing="true"] .mystic-music-play,
+.mystic-music[data-playing="true"] .mystic-music-compact button:last-child {
+  border-color: #ffe19c;
+  box-shadow: 0 0 .75rem #d66cffaa, inset 0 0 .55rem #bb45e599;
+}
+.mystic-music-volume { padding-inline-start: .55rem; border-inline-start: 1px solid #8749a966; }
+.mystic-music-volume input { width: 3.75rem; margin: 0 .15rem; accent-color: #e49cff; }
+.mystic-music-error {
+  position: absolute;
+  top: calc(100% + .5rem);
+  right: 0;
+  width: min(100%, 20rem);
+  padding: .5rem;
+  border: 1px solid #8749a9;
+  border-radius: .5rem;
+  background: #20102c;
+  color: #f0c7ff;
+  font-size: .8rem;
+}
+.mystic-music .mystic-music-close,
+.mystic-music-compact { display: none; }
+
+.mystic-music .mystic-music-activate {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + .5rem);
+  right: 0;
+  display: inline-flex;
+  justify-content: center;
+  gap: .4rem;
+  width: max-content;
+  max-width: 100%;
+  height: auto;
+  min-height: 2.75rem;
+  padding: .35rem .8rem;
+  border: 1px solid #a455c9;
+  border-radius: 1.5rem;
+  background: #231030;
+  box-shadow: 0 0 .65rem #b539e450;
+  font-size: .82rem;
+}
+
+.mystic-music .mystic-music-activate:hover { background: #46215d; }
+.header-inner:has(.navigation:not([hidden])) .mystic-music-activate { display: none; }
+
+@media (min-width: 45.01rem) {
+  .mystic-music { position: relative; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mystic-music[data-playing="true"] .mystic-music-play,
+  .mystic-music[data-playing="true"] .mystic-music-compact button:last-child {
+    animation: mystic-music-glow 2.8s ease-in-out infinite alternate;
+  }
+}
+@keyframes mystic-music-glow {
+  to { box-shadow: 0 0 1rem #d66cffdd, inset 0 0 .65rem #bb45e5bb; }
+}
+
+@media (max-width: 45rem) {
+  .mystic-music-compact { display: flex; }
+  .mystic-music .mystic-music-close {
+    position: absolute;
+    inset: .25rem .25rem auto auto;
+    display: grid;
+  }
+  .mystic-music-panel {
+    position: absolute;
+    inset: calc(100% + .5rem) 0 auto auto;
+    width: min(100%, 23rem);
+    max-height: calc(100dvh - 5.5rem);
+    overflow-y: auto;
+    flex-wrap: wrap;
+    padding: .75rem;
+    border-radius: .85rem;
+  }
+  .mystic-music-panel[data-open="false"] { display: none; }
+  .mystic-music[data-needs-activation="true"] .mystic-music-panel {
+    top: calc(100% + 3.75rem);
+    max-height: calc(100dvh - 9rem);
+  }
+  .mystic-music-panel::before, .mystic-music-panel::after { display: none; }
+  .mystic-music-track { flex-basis: calc(100% - 4.75rem); }
+  .mystic-music-error { position: static; width: 100%; }
+  .header-inner:has(.mystic-music) { gap: clamp(.25rem, 1.6vw, 1rem); }
+  .header-inner:has(.mystic-music) .brand { gap: .35rem; font-size: clamp(1.05rem, 4.4vw, 1.45rem); }
+  .header-inner:has(.mystic-music) .brand svg { width: 1.35rem; height: 1.35rem; }
+}

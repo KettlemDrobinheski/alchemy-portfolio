@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Teste de incorporação · Alchemy</title>
+  </head>
+  <body>
+    <h1>Teste do vídeo jwz1VuYQ_fw</h1>
+    <button id="play" type="button" disabled>Testar reprodução</button>
+    <p id="status" role="status">Carregando a API oficial do YouTube…</p>
+    <div id="player"></div>
+
+    <script>
+      const play = document.getElementById('play')
+      const status = document.getElementById('status')
+      const timeout = setTimeout(() => {
+        status.textContent = 'O player não respondeu. Resultado inconclusivo.'
+      }, 15000)
+
+      window.onYouTubeIframeAPIReady = () => {
+        new YT.Player('player', {
+          width: Math.max(200, Math.min(480, document.documentElement.clientWidth - 16)),
+          height: 270,
+          videoId: 'jwz1VuYQ_fw',
+          playerVars: { origin: location.origin, playsinline: 1 },
+          events: {
+            onReady({ target }) {
+              clearTimeout(timeout)
+              target.getIframe().title = 'Vídeo do YouTube em teste'
+              play.disabled = false
+              play.addEventListener('click', () => target.playVideo())
+              status.textContent = 'Player pronto. Clique para testar a reprodução.'
+            },
+            onStateChange({ data }) {
+              if (data === YT.PlayerState.PLAYING) {
+                status.textContent = 'Confirmado: o vídeo está tocando neste player incorporado.'
+              }
+            },
+            onError({ data }) {
+              clearTimeout(timeout)
+              status.textContent = data === 101 || data === 150
+                ? 'Incorporação bloqueada pelo proprietário (erro ' + data + ').'
+                : 'Erro ' + data + ' do YouTube. A incorporação não foi confirmada.'
+            },
+            onAutoplayBlocked() {
+              status.textContent = 'O navegador bloqueou o comando. Tente reproduzir no próprio vídeo.'
+            },
+          },
+        })
+      }
+
+      const api = document.createElement('script')
+      api.src = 'https://www.youtube.com/iframe_api'
+      api.onerror = () => {
+        clearTimeout(timeout)
+        status.textContent = 'A API do YouTube não carregou. Resultado inconclusivo.'
+      }
+      document.head.append(api)
+    </script>
+  </body>
+</html>

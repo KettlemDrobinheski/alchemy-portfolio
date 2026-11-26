@@ -6,6 +6,7 @@ import { Portrait } from './components/Portrait'
 import profilePhoto from './assets/perfil-alchemy-transparente.png'
 import { Reveal } from './components/Section'
 import { CursorStars } from './components/CursorStars'
+import { MysticMusicPlayer } from './components/MysticMusicPlayer'
 import { HeroBackdrop } from './components/HeroBackdrop'
 import { ProjectsPage } from './components/ProjectsPage'
 import { AboutPage } from './components/AboutPage'
@@ -64,7 +65,7 @@ function App() {
         event.preventDefault()
         main.current?.focus()
       }}>Pular para o conteúdo</a>
-      <Navbar environment={environment} />
+      <Navbar environment={environment} musicPlayer={<MysticMusicPlayer />} />
       <CursorStars />
       <main id="conteudo" ref={main} tabIndex={-1}>
         {environment === 'projetos' ? <ProjectsPage /> : environment === 'sobre' ? <AboutPage />
