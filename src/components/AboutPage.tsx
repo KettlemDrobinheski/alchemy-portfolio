@@ -1,4 +1,4 @@
-import { ArrowLeft } from 'lucide-react'
+﻿import { ArrowLeft } from 'lucide-react'
 import './AboutPage.css'
 
 export function AboutPage() {
@@ -13,41 +13,23 @@ export function AboutPage() {
       <article className="about-scroll">
         <div className="about-scroll-reading" role="region" aria-labelledby="about-title" tabIndex={0}>
           <header>
-            <h1 id="about-title">✦ Sobre Mim</h1>
-            <p><em>Minha jornada pelo universo da tecnologia</em></p>
+            <h1 id="about-title">Capítulo II — A Jornada</h1>
+            <p><em>Os caminhos que me trouxeram até aqui</em></p>
           </header>
-          <p>Olá! Sou Kettlem Drobinheski, estudante de Análise e Desenvolvimento de Sistemas, apaixonada por tecnologia, inovação e resolução de problemas.</p>
-          <p>Meu primeiro contato com computadores aconteceu aos 15 anos, quando meu pai me fez uma pergunta que marcaria minha história: <strong>“Você prefere ganhar um computador ou uma festa de 15 anos?”</strong> Bom, acho que já sabemos qual foi a minha escolha, né? Rs. O que parecia apenas um presente acabou se tornando o início de uma curiosidade que me acompanha até hoje: descobrir como a tecnologia funciona e explorar tudo o que ela pode oferecer.</p>
-          <p>Atualmente, venho transformando essa curiosidade em conhecimento prático por meio do desenvolvimento de aplicações web, utilizando tecnologias como React, JavaScript e TypeScript.</p>
-
-          <h2>✦ Minha Trajetória</h2>
-          <p>Minha experiência profissional na indústria me ensinou a importância da responsabilidade, da organização, da atenção aos detalhes e do trabalho em equipe.</p>
-          <p>Durante essa trajetória, comecei a perceber como a tecnologia poderia solucionar problemas reais do cotidiano.</p>
-          <p>Essa percepção despertou meu interesse em desenvolver soluções próprias, conectando minhas experiências profissionais ao universo da programação.</p>
-
-          <h2>✦ Minha Jornada como Desenvolvedora</h2>
-          <p>Minha formação acadêmica e meus projetos pessoais têm me permitido explorar diferentes etapas do desenvolvimento de software.</p>
-          <p>Busco compreender não apenas como escrever código, mas também como estruturar aplicações, identificar problemas, realizar testes e construir experiências intuitivas.</p>
-          <p>Tenho especial interesse em desenvolvimento Full Stack, com foco em criar soluções que sejam funcionais, acessíveis e visualmente interessantes.</p>
-
-          <h2>✦ Projetos que Contam Minha História</h2>
-          <p><strong>GessoLider</strong></p>
-          <p>Aplicação de orçamentos para serviços de construção a seco, desenvolvida para facilitar cálculos, organização e geração de documentos profissionais.</p>
-          <p><strong>LupoCalibra</strong></p>
-          <p>Projeto inspirado em desafios observados no ambiente industrial, utilizando tecnologia para explorar uma solução de apoio às atividades operacionais.</p>
-          <p><strong>User Management</strong></p>
-          <p>Aplicação de gerenciamento de usuários desenvolvida para praticar formulários, validações, integração com APIs e organização de dados.</p>
-          <p><strong>Alchemy</strong></p>
-          <p>Meu próprio portfólio interativo, que combina desenvolvimento web, criatividade, animações e experiências tridimensionais.</p>
-
-          <h2>✦ Além do Código</h2>
-          <p>Sou uma pessoa curiosa, dedicada e persistente. Gosto de aprender, experimentar novas ferramentas e enfrentar desafios que me façam evoluir.</p>
-          <p>Valorizo o trabalho em equipe, a troca de conhecimentos e a oportunidade de aprender com profissionais mais experientes.</p>
-          <p>Acredito que desenvolver software é muito mais do que escrever código: é transformar ideias em soluções que façam diferença.</p>
-
-          <h2>✦ Meu Próximo Capítulo</h2>
-          <p>Meu objetivo é conquistar minha primeira oportunidade profissional na área de tecnologia, continuar aprimorando meus conhecimentos e contribuir para projetos que gerem impacto real.</p>
-          <p><em>Cada projeto representa uma descoberta. Cada desafio, uma oportunidade de evolução.</em></p>
+          <p>Meu primeiro contato com computadores aconteceu aos 15 anos, quando meu pai me fez uma pergunta que nunca esqueci: <strong>"Você prefere uma festa de 15 anos ou um computador?"</strong></p>
+          <p>Bom, acho que já sabemos qual foi minha escolha! rs.</p>
+          <p>Naquele momento, eu não imaginava que aquele computador seria o início de uma história que, anos depois, me aproximaria novamente da tecnologia.</p>
+          <p>Minha trajetória, porém, não seguiu uma linha reta.</p>
+          <p>Por desejo dos meus pais, iniciei a faculdade de Pedagogia. Durante esse período, tive a oportunidade de estagiar em uma escola municipal, auxiliando professoras e pedagogos nas atividades escolares. Também realizei estágio na Secretaria Municipal de Educação da prefeitura da cidade onde morava.</p>
+          <p>Foram experiências que me ensinaram sobre responsabilidade, comunicação, organização e a importância de trabalhar com pessoas.</p>
+          <p>Mas, faltando apenas seis meses para concluir a graduação, decidi trancar a faculdade. Apesar de tudo que havia aprendido, percebi que aquele não era o caminho profissional que desejava seguir.</p>
+          <p>E, como acontece em tantas histórias, os ventos acabaram me levando por outros caminhos.</p>
+          <p>Trabalhei como vendedora, garçonete, frentista de posto de gasolina, atendente de oficina e também na área industrial.</p>
+          <p>Cada profissão trouxe seus próprios desafios e aprendizados. Conheci diferentes ambientes de trabalho, desenvolvi minha capacidade de adaptação, aprendi a lidar com pessoas e descobri a importância de ter persistência diante das dificuldades.</p>
+          <p>Até que, em meio a tantas experiências, decidi dar uma nova oportunidade àquela curiosidade que começou aos 15 anos, diante do meu primeiro computador.</p>
+          <p>Hoje, curso <strong>Análise e Desenvolvimento de Sistemas</strong> e venho construindo meus conhecimentos em programação por meio dos estudos e de projetos pessoais.</p>
+          <p>Minha trajetória pode não ter sido convencional, mas cada experiência contribuiu para formar a pessoa que sou.</p>
+          <p><strong>E agora, pela primeira vez, sinto que estou escrevendo um capítulo que escolhi para mim.</strong></p>
         </div>
       </article>
     </section>

@@ -19,7 +19,7 @@ export function Brand() {
   )
 }
 
-export function Navbar({ environment }: { environment: 'projetos' | 'sobre' | 'habilidades' | null }) {
+export function Navbar({ environment }: { environment: 'projetos' | 'sobre' | 'habilidades' | 'introducao' | 'futuro' | 'contato' | null }) {
   const [open, setOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('inicio')
   const toggle = useRef<HTMLButtonElement>(null)
@@ -84,7 +84,7 @@ export function Navbar({ environment }: { environment: 'projetos' | 'sobre' | 'h
         </button>
         <nav id="navigation" className={open ? 'navigation is-open' : 'navigation'} aria-label="Principal">
           {links.map(({ id, label, icon: Icon }) => (
-            <a key={id} href={id === 'projetos' || id === 'sobre' || id === 'habilidades' ? '#/' + id : '#' + id}
+            <a key={id} href={id === 'inicio' ? '#inicio' : '#/' + id}
               aria-current={environment ? (id === environment ? 'page' : undefined) : (activeSection === id ? 'location' : undefined)}
               onClick={() => {
               document.getElementById(id)?.focus({ preventScroll: true })

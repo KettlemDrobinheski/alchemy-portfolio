@@ -149,6 +149,14 @@
   text-align: left;
   padding-inline: .5rem;
 }
+.skills-pair .skills-entry summary {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+.skills-pair .skills-entry summary strong { overflow-wrap: normal; }
+.skills-pair .skills-entry .skills-seal {
+  grid-column: 1 / -1;
+  white-space: nowrap;
+}
 .skills-mark {
   display: inline-grid;
   place-items: center;
@@ -180,14 +188,16 @@
 .skills-notes { margin: 0; padding: .55rem .55rem .55rem 1.4rem; overflow-wrap: anywhere; }
 .skills-notes li + li { margin-top: .25rem; }
 .skills-checklist li::marker { content: '✓  '; color: #673568; }
+.skills-reference-lists .skills-heading,
+.skills-reference-lists .skills-notes {
+  font-size: .85rem;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+.skills-reference-lists .skills-heading::after { content: none; }
+.skills-reference-lists .skills-notes { padding-inline: 1.15rem .45rem; }
 .skills-catalog-end { width: 100%; margin: 0; }
 
-@media (max-width: 82rem) {
-  .skills-pair .skills-entry summary {
-    grid-template-columns: auto minmax(0, 1fr);
-  }
-  .skills-pair .skills-entry .skills-seal { grid-column: 2; }
-}
 @media (max-width: 64rem) {
   .skills-book {
     grid-template-columns: minmax(0, 1fr);

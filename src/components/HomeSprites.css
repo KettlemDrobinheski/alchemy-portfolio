@@ -1,0 +1,86 @@
+.home-sprite-zone { position: relative; }
+
+.home-sprites {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.home-sprite {
+  position: absolute;
+  left: var(--sprite-x);
+  top: var(--sprite-y);
+  width: var(--sprite-size, 1.18rem);
+  height: auto;
+  opacity: .8;
+  filter: drop-shadow(0 0 3px currentColor);
+  animation: home-sprite-flight var(--sprite-speed, 4.5s) var(--sprite-delay, 0s) ease-in-out infinite alternate;
+}
+.home-sprite--butterfly { color: #e8a0ff; }
+.home-sprite--fairy { color: #ffd88a; }
+.home-sprite-wings {
+  transform-box: view-box;
+  transform-origin: center;
+  animation: home-sprite-wings .19s ease-in-out infinite alternate;
+}
+.home-sprites .home-sprite:nth-child(2) { --sprite-size: .95rem; --sprite-speed: 3.3s; --sprite-delay: -1s; }
+.home-sprites .home-sprite:nth-child(3) { --sprite-speed: 5.3s; --sprite-delay: -2s; }
+.home-sprites .home-sprite:nth-child(4) { --sprite-size: 1rem; --sprite-speed: 4.1s; --sprite-delay: -2.6s; }
+
+.home-sprites--hero .home-sprite:nth-child(1) { --sprite-x: 58%; --sprite-y: 12%; }
+.home-sprites--hero .home-sprite:nth-child(2) { --sprite-x: 91%; --sprite-y: 27%; }
+.home-sprites--hero .home-sprite:nth-child(3) { --sprite-x: 46%; --sprite-y: 57%; }
+.home-sprites--hero .home-sprite:nth-child(4) { --sprite-x: 86%; --sprite-y: 79%; }
+.home-sprites--footer .home-sprite:nth-child(1) { --sprite-x: 29%; --sprite-y: 42%; }
+.home-sprites--footer .home-sprite:nth-child(2) { --sprite-x: 70%; --sprite-y: 44%; }
+.home-sprites--footer .home-sprite:nth-child(n + 3) { display: none; }
+
+.home-sprite--landing {
+  --landing-delay: 0s;
+  top: -.72rem;
+  right: .85rem;
+  left: auto;
+  z-index: 2;
+  width: 1.4rem;
+  pointer-events: none;
+  animation: home-sprite-land 6s var(--landing-delay) ease-in-out infinite;
+}
+.home-chapter-card:nth-child(2n) .home-sprite--landing { --landing-delay: -2s; }
+.home-chapter-card:nth-child(3n) .home-sprite--landing { --landing-delay: -4s; }
+.home-sprite--landing .home-sprite-wings {
+  animation: home-sprite-land-wings 6s var(--landing-delay) linear infinite;
+}
+
+@keyframes home-sprite-flight {
+  0% { transform: translate(0, 0) rotate(-12deg); opacity: .55; }
+  33% { transform: translate(.75rem, -.65rem) rotate(12deg); opacity: .9; }
+  66% { transform: translate(.2rem, .45rem) rotate(-5deg); opacity: .68; }
+  100% { transform: translate(-.7rem, -.4rem) rotate(-18deg); opacity: .85; }
+}
+@keyframes home-sprite-wings { to { transform: scaleX(.58); } }
+@keyframes home-sprite-land {
+  0%, 100% { transform: translate(-1.25rem, -1.45rem) rotate(20deg); opacity: .3; }
+  13% { transform: translate(.4rem, -1.8rem) rotate(-18deg); opacity: .95; }
+  29% { transform: translate(.35rem, -.75rem) rotate(15deg); }
+  40%, 61% { transform: translate(0, 0) rotate(0); opacity: .92; }
+  72% { transform: translate(-.5rem, -1.05rem) rotate(-18deg); }
+  88% { transform: translate(-1.75rem, -1.9rem) rotate(-25deg); opacity: .9; }
+}
+@keyframes home-sprite-land-wings {
+  0%, 8%, 16%, 24%, 32%, 70%, 78%, 86%, 94%, 100% { transform: scaleX(.55); }
+  4%, 12%, 20%, 28%, 36%, 66%, 74%, 82%, 90%, 97% { transform: scaleX(1); }
+  40%, 61% { transform: scaleX(.85); }
+}
+
+@media (max-width: 47.99rem) {
+  .home-sprites .home-sprite:nth-child(n + 3) { display: none; }
+  .home-sprites--hero .home-sprite:nth-child(1) { --sprite-x: 8%; --sprite-y: 54%; }
+  .home-sprites--hero .home-sprite:nth-child(2) { --sprite-x: 90%; --sprite-y: 62%; }
+  .home-sprites--footer { display: none; }
+  .home-chapter-card:nth-child(n + 5) .home-sprite--landing { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-sprite, .home-sprite-wings { animation: none; }
+}

@@ -111,7 +111,7 @@ export function SkillsSection() {
             </div>
           </div>
 
-          <div className="skills-pair">
+          <div className="skills-pair skills-reference-lists">
             <div>
               <SkillHeading icon={Wrench}>Ferramentas de Desenvolvimento</SkillHeading>
               <ul className="skills-notes">
