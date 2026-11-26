@@ -36,10 +36,11 @@ type ProjectCardProps = {
   screenshot?: { src: string; alt: string }
   repositoryUrl?: string
   demoUrl?: string
+  onView?: (trigger: HTMLButtonElement) => void
 }
 
 export function ProjectCard({
-  title, description, stack, icon: Icon, screenshot, repositoryUrl, demoUrl,
+  title, description, stack, icon: Icon, screenshot, repositoryUrl, demoUrl, onView,
 }: ProjectCardProps) {
   return (
     <Reveal>
@@ -71,6 +72,11 @@ export function ProjectCard({
             </div>
           )}
         </div>
+        {onView && (
+          <button className="project-card__details-trigger" type="button"
+            aria-label={`Ver projeto ${title}`} aria-haspopup="dialog"
+            onClick={(event) => onView(event.currentTarget)} />
+        )}
       </article>
     </Reveal>
   )

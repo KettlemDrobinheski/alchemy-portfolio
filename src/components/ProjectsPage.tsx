@@ -1,13 +1,17 @@
 import { ArrowLeft, House, Settings, UserRound } from 'lucide-react'
+import { useState } from 'react'
 import gessoLiderArt from '../assets/projects/gessolider.png'
 import lupoCalibraArt from '../assets/projects/lupocalibra.png'
 import userManagementArt from '../assets/projects/user-management.png'
+import { projectDetails, type ProjectDetails } from '../data/projectDetails'
 import { AlchemyMark } from './AlchemyMark'
 import { ProjectCard } from './ProjectCard'
+import { ProjectDetailsDialog } from './ProjectDetailsDialog'
 import { Reveal } from './Section'
 
 const projects = [
   {
+    id: 'gessolider',
     title: 'GessoLider',
     description: 'Aplicativo para elaborar e gerenciar orçamentos de construção a seco.',
     stack: ['Expo', 'React Native', 'TypeScript'],
@@ -15,6 +19,7 @@ const projects = [
     screenshot: { src: gessoLiderArt, alt: 'Arte de apresentação do GessoLider' },
   },
   {
+    id: 'lupocalibra',
     title: 'LupoCalibra',
     description: 'Protótipo de ferramenta para auxiliar processos de calibração industrial.',
     stack: ['Next.js', 'TypeScript'],
@@ -22,6 +27,7 @@ const projects = [
     screenshot: { src: lupoCalibraArt, alt: 'Arte de apresentação do LupoCalibra' },
   },
   {
+    id: 'user-management',
     title: 'User Management',
     description: 'Sistema de gerenciamento de usuários.',
     stack: ['React', 'Node.js', 'PostgreSQL'],
@@ -31,6 +37,8 @@ const projects = [
 ]
 
 export function ProjectsPage() {
+  const [selection, setSelection] = useState<{ details: ProjectDetails; trigger: HTMLButtonElement } | null>(null)
+
   return (
     <section id="projetos" className="projects-page" aria-labelledby="projects-title">
       <div className="shell projects-page-content">
@@ -46,9 +54,19 @@ export function ProjectsPage() {
           </header>
         </Reveal>
         <div className="project-grid">
-          {projects.map((project) => <ProjectCard key={project.title} {...project} />)}
+          {projects.map(({ id, ...project }) => {
+            const details = projectDetails[id]
+            return <ProjectCard key={id} {...project}
+              onView={details ? (trigger) => setSelection({ details, trigger }) : undefined} />
+          })}
         </div>
       </div>
+      {selection && (
+        <ProjectDetailsDialog project={selection.details} trigger={selection.trigger} onClose={() => {
+          setSelection(null)
+          selection.trigger.focus({ preventScroll: true })
+        }} />
+      )}
     </section>
   )
 }
