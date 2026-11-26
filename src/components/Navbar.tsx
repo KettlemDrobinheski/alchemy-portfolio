@@ -1,6 +1,7 @@
 import { CodeXml, House, Layers3, Mail, UserRound } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { AlchemyMark } from './AlchemyMark'
+import { ResumeScroll } from './ResumeScroll'
 
 const links = [
   { id: 'inicio', label: 'Início', icon: House },
@@ -101,7 +102,7 @@ export function Navbar({ environment, musicPlayer }: { musicPlayer: ReactNode; e
       <div className="shell header-inner">
         <Brand compact />
         {musicPlayer}
-        <span className="resume-preview">Currículo</span>
+        <ResumeScroll />
         <button
           ref={toggle}
           className="menu-toggle"

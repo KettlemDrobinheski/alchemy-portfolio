@@ -121,14 +121,6 @@ export function MysticMusicPlayer({ ref }: { ref?: Ref<{ playOpeningTrack: () =>
         }
       }}>
       <div className="mystic-music-compact">
-        {playing && !open && (
-          <button type="button" aria-label="Pausar trilha" onClick={() => {
-            togglePlayback()
-            disclosure.current?.focus()
-          }}>
-            <Pause size={18} aria-hidden="true" />
-          </button>
-        )}
         <button ref={disclosure} className="mystic-music-medallion" type="button" aria-label={open ? 'Fechar controles musicais' : 'Abrir controles musicais'}
           aria-expanded={open} aria-controls="alchemy-music-controls" onClick={() => setOpen((wasOpen) => !wasOpen)}>
           <img src={musicMedallion} alt="" width={192} height={192} />

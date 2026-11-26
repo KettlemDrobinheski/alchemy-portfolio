@@ -1,0 +1,148 @@
+.resume-trigger { cursor: pointer; }
+html:has(.resume-dialog[open]) { overflow: hidden; }
+
+.resume-dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: clamp(.75rem, 3vw, 1.5rem);
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+}
+
+.resume-dialog[open] { display: grid; place-items: center; }
+.resume-dialog::backdrop { background: #08040dc4; backdrop-filter: blur(4px); }
+
+@media (hover: hover) and (pointer: fine) {
+  /* The portfolio's light cursor hides native cursors with !important. */
+  #resume-scroll[open],
+  #resume-scroll[open] * { cursor: auto !important; }
+
+  #resume-scroll[open][data-closing="false"] .resume-scroll,
+  #resume-scroll[open][data-closing="false"] .resume-scroll *:not(iframe) {
+    cursor: url('../assets/resume-quill-cursor.svg') 4 29, auto !important;
+  }
+
+  #resume-scroll[open][data-closing="false"] .resume-scroll :is(button:not(:disabled), a[href]) {
+    cursor: url('../assets/resume-quill-cursor.svg') 4 29, pointer !important;
+  }
+}
+
+.resume-scroll {
+  position: relative;
+  width: min(100%, 52.5rem, 81.2dvh);
+  aspect-ratio: 14 / 15;
+  transform-origin: top center;
+}
+
+.resume-scroll::before {
+  position: absolute;
+  inset: 0;
+  background: url('../assets/resume-parchment.png') center / 100% 100% no-repeat;
+  mask-image: linear-gradient(transparent, #000 4% 96%, transparent),
+    linear-gradient(90deg, transparent, #000 2% 98%, transparent);
+  mask-composite: intersect;
+  pointer-events: none;
+  content: '';
+}
+
+@media (max-height: 34rem) and (orientation: landscape) {
+  .resume-scroll {
+    width: min(100%, 42rem);
+    height: 87dvh;
+    aspect-ratio: auto;
+  }
+}
+
+.resume-scroll__paper {
+  position: absolute;
+  inset: 15% 13% 16%;
+  padding: .6rem clamp(.4rem, 2.5vw, 1.1rem) 1rem;
+  overflow: auto;
+  color: #4d321e;
+  color-scheme: light;
+  text-align: center;
+}
+
+.resume-scroll__paper:focus-visible { outline: 2px solid #71348b; outline-offset: -3px; }
+.resume-scroll__emblem { color: #743987; font: 600 1.65rem/1 var(--display); }
+.resume-scroll h2 {
+  margin: .65rem 0 .55rem;
+  color: #4d321e;
+  font: 700 clamp(1.35rem, 4.5vw, 2.25rem)/1.15 var(--serif);
+}
+.resume-scroll p { line-height: 1.5; }
+.resume-scroll__rule {
+  width: 70%;
+  height: 1px;
+  margin: 1rem auto;
+  background: linear-gradient(90deg, transparent, #9d6d3a 18% 82%, transparent);
+}
+
+.resume-scroll__close {
+  position: absolute;
+  top: .6rem;
+  right: .6rem;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #986b44;
+  border-radius: 50%;
+  background: #edcf9c;
+  color: #56371b;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.resume-scroll__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; }
+.resume-scroll__action {
+  display: inline-grid;
+  min-height: 2.75rem;
+  place-items: center;
+  padding: .5rem .85rem;
+  border: 1px solid #744483;
+  border-radius: .4rem;
+  background: #5c2b68;
+  color: #ffefff;
+  font-size: .83rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.resume-scroll__action--download { border-color: #9c723e; background: #ead1a6; color: #5b381f; }
+.resume-scroll__action:disabled { border-color: #a88a65; background: #e9d4af; color: #6e5239; cursor: default; }
+.resume-scroll__action:focus-visible,
+.resume-scroll__close:focus-visible { outline: 2px solid #71348b; outline-offset: 2px; }
+.resume-scroll__notice:not(:empty) { margin-top: .8rem; color: #684d34; font-size: .8rem; }
+
+.resume-scroll iframe {
+  display: block;
+  width: 100%;
+  height: min(52dvh, 35rem);
+  margin-top: 1rem;
+  border: 1px solid #ad864a;
+  background: #fbefd4;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .resume-dialog[open]::backdrop { animation: resume-veil .32s ease both; }
+  .resume-dialog[open] .resume-scroll { animation: resume-unroll .8s cubic-bezier(.18, .79, .3, 1) both; }
+  .resume-dialog[data-closing="true"]::backdrop { animation: resume-veil .35s ease reverse both; }
+  .resume-dialog[data-closing="true"] .resume-scroll { animation: resume-rollup .35s ease-in both; }
+}
+
+@keyframes resume-veil { from { opacity: 0; } to { opacity: 1; } }
+@keyframes resume-unroll {
+  from { opacity: 0; transform: scaleY(.09) translateY(-7rem); }
+  45% { opacity: 1; }
+  to { opacity: 1; transform: scaleY(1); }
+}
+@keyframes resume-rollup {
+  to { opacity: 0; transform: scaleY(.03) translateY(-6rem); }
+}

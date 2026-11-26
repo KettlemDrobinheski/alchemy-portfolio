@@ -7,11 +7,12 @@
 .mystic-music-panel {
   position: absolute;
   inset: calc(100% + .5rem) 0 auto auto;
-  width: min(100%, 23rem);
+  width: min(100%, 16rem);
   max-height: calc(100dvh - 6.5rem);
   overflow-y: auto;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   gap: .55rem;
   padding: .75rem;
@@ -27,12 +28,18 @@
   max-height: calc(100dvh - 10rem);
 }
 
-.mystic-music-symbol { flex: none; color: #ffd987; }
-.mystic-music-track { min-width: 0; line-height: 1.25; }
+.mystic-music-symbol { position: absolute; inset: .95rem auto auto .85rem; color: #ffd987; }
+.mystic-music-track {
+  flex-basis: 100%;
+  min-width: 0;
+  padding-inline: 1.75rem;
+  text-align: center;
+  line-height: 1.3;
+}
 .mystic-music-name { color: #ffe099; font: 600 .86rem var(--display); }
 .mystic-music-track strong,
 .mystic-music-track small { display: block; font-size: .74rem; }
-.mystic-music-track strong { overflow-wrap: anywhere; }
+.mystic-music-track strong { margin-block: .2rem; font-size: .86rem; overflow-wrap: anywhere; }
 .mystic-music-track small { color: var(--muted); }
 
 .mystic-music-controls,
@@ -54,8 +61,7 @@
 }
 
 .mystic-music button:hover { background: #46215d; }
-.mystic-music .mystic-music-play,
-.mystic-music-compact button {
+.mystic-music .mystic-music-play {
   border-color: #c958eb;
   background: #351146;
   box-shadow: inset 0 0 .55rem #ad35d975;
@@ -66,10 +72,9 @@
   box-shadow: 0 0 .75rem #d66cffaa, inset 0 0 .55rem #bb45e599;
 }
 .mystic-music-volume { padding-inline-start: .55rem; border-inline-start: 1px solid #8749a966; }
-.mystic-music-volume input { width: 3.75rem; margin: 0 .15rem; accent-color: #e49cff; }
+.mystic-music-volume input { width: 2.75rem; margin: 0; accent-color: #e49cff; }
 .mystic-music-error { width: 100%; color: #f0c7ff; font-size: .8rem; }
 .mystic-music .mystic-music-close { position: absolute; inset: .25rem .25rem auto auto; }
-.mystic-music-track { flex-basis: calc(100% - 4.75rem); }
 
 .mystic-music .mystic-music-medallion {
   width: clamp(2.85rem, 5.2vw, 3.8rem);
@@ -85,7 +90,7 @@
   width: 100%;
   height: auto;
   border-radius: 50%;
-  mask-image: radial-gradient(circle closest-side, #000 92%, transparent 100%);
+  mask-image: radial-gradient(circle closest-side, #000 98%, transparent 100%);
 }
 
 .mystic-music .mystic-music-medallion:hover img,
