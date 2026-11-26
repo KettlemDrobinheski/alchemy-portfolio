@@ -1,4 +1,4 @@
-import { PanelsTopLeft, Settings, type LucideIcon } from 'lucide-react'
+import { PanelsTopLeft, Settings, UserRound, type LucideIcon } from 'lucide-react'
 import presentation from '../assets/projects/gessolider/01-apresentacao.png'
 import dashboard from '../assets/projects/gessolider/02-dashboard.png'
 import budgetCreation from '../assets/projects/gessolider/03-criacao-orcamento.png'
@@ -13,6 +13,13 @@ import lupoProduction from '../assets/projects/lupocalibra/04-producao.png'
 import lupoRegulation from '../assets/projects/lupocalibra/05-regulagem.png'
 import lupoInterlock from '../assets/projects/lupocalibra/06-bloqueio.png'
 import lupoReset from '../assets/projects/lupocalibra/07-reset.png'
+import userOverview from '../assets/projects/user-management/01-visao-geral.png'
+import userViaCep from '../assets/projects/user-management/02-viacep-preenchido.png'
+import userInvalidCpf from '../assets/projects/user-management/03-cpf-invalido.png'
+import userCreated from '../assets/projects/user-management/04-cadastro-sucesso.png'
+import userSearch from '../assets/projects/user-management/05-pesquisa-filtrada.png'
+import userEdit from '../assets/projects/user-management/06-edicao-aberta.png'
+import userRemoved from '../assets/projects/user-management/07-exclusao-sucesso.png'
 
 export type ProjectScreenshot = {
   src: string
@@ -117,6 +124,45 @@ export const projectDetails: Partial<Record<string, ProjectDetails>> = {
     links: [
       { label: 'Explorar demonstração', href: 'https://kettlemdrobinheski.github.io/LupoCalibra/demo/', kind: 'demo' },
       { label: 'Ver código no GitHub', href: 'https://github.com/KettlemDrobinheski/LupoCalibra', kind: 'github' },
+    ],
+  },
+  'user-management': {
+    title: 'User Management',
+    subtitle: 'Sistema Full Stack de gerenciamento de usuários',
+    status: 'Demonstração pública disponível',
+    seal: { icon: UserRound },
+    screenshots: [
+      { src: userOverview, title: 'Visão geral do cadastro de usuários', alt: 'Formulário, pesquisa, contador e cartões dos dois usuários fictícios iniciais', width: 1440, height: 1100 },
+      { src: userViaCep, title: 'Preenchimento automático de endereço com ViaCEP', alt: 'CEP preenchido e campos de rua, bairro, cidade e estado retornados pelo ViaCEP', width: 1440, height: 1100 },
+      { src: userInvalidCpf, title: 'Validação de CPF no formulário', alt: 'Mensagem Digite um CPF válido exibida abaixo do campo de CPF', width: 1440, height: 1100 },
+      { src: userCreated, title: 'Cadastro concluído com confirmação', alt: 'Mensagem de sucesso no cadastro e cartão do novo usuário fictício', width: 1440, height: 1100 },
+      { src: userSearch, title: 'Pesquisa por e-mail', alt: 'Busca por e-mail com apenas o cartão do usuário fictício correspondente', width: 1440, height: 1100 },
+      { src: userEdit, title: 'Edição com dados e endereço preenchidos', alt: 'Formulário em modo de edição com os dados do registro fictício e seu endereço carregados', width: 1440, height: 1100 },
+      { src: userRemoved, title: 'Lista atualizada após exclusão', alt: 'Mensagem de sucesso na exclusão e os dois cartões fictícios que permanecem na lista', width: 1440, height: 1100 },
+    ],
+    about: [
+      'Desenvolvi o User Management para cadastrar, consultar, editar e excluir usuários. A interface foi construída com React e JavaScript. No modo Full Stack, ela se comunica com uma API REST em Node.js e Express, que consulta e grava os registros no PostgreSQL.',
+      'O formulário valida CPF, e-mail, idade e CEP e integra o ViaCEP para preencher o endereço. Os testes automatizados cobrem as validações, os fluxos da demonstração e o comportamento das rotas da API, incluindo entradas inválidas e registros duplicados.',
+      'A demonstração pública usa registros fictícios e mantém as alterações no localStorage do navegador. Ela permite experimentar o fluxo completo e restaurar os exemplos iniciais sem instalar nada. O modo Full Stack com Express e PostgreSQL é executado localmente.',
+    ],
+    stack: ['React', 'JavaScript', 'Vite', 'Node.js', 'Express', 'PostgreSQL', 'ViaCEP', 'Vitest', 'GitHub Pages'],
+    features: [
+      'Cadastro, consulta e edição de usuários, com confirmação antes da exclusão.',
+      'Pesquisa por nome ou e-mail na lista de usuários.',
+      'Validação de CPF, e-mail, idade e CEP.',
+      'Preenchimento automático de endereço pelo ViaCEP, com opção de preenchimento manual quando o serviço está indisponível.',
+      'Demonstração pública com persistência no localStorage e opção de restaurar os exemplos fictícios.',
+    ],
+    challenges: [
+      'Compartilhar a interface entre o modo Full Stack e a demo, separando a API do armazenamento local na configuração do build.',
+      'Impedir respostas atrasadas do ViaCEP de sobrescrever o endereço associado ao CEP atual.',
+      'Entender a matemática dos dígitos verificadores do CPF foi um pequeno desafio. Usei esse cálculo para impedir que o formulário aceite qualquer sequência de 11 dígitos como um CPF válido.',
+    ],
+    learnings: 'Aprendi a separar a interface da camada de dados, validar entradas no navegador e na API e testar o CRUD em um banco descartável.',
+    nextSteps: 'Ampliar os testes de ponta a ponta do cadastro, da edição e da exclusão.',
+    links: [
+      { label: 'Explorar demonstração', href: 'https://kettlemdrobinheski.github.io/user-management-react/', kind: 'demo' },
+      { label: 'Ver código no GitHub', href: 'https://github.com/KettlemDrobinheski/user-management-react', kind: 'github' },
     ],
   },
 }
