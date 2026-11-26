@@ -95,7 +95,7 @@ export function GrimoireStageC() {
             {paused ? 'Retomar flutuação' : 'Pausar flutuação'}
           </button>
         )}
-        <a href="../grimoire-prototype.html">Ver protótipo anterior</a>
+        <a href={`${import.meta.env.BASE_URL}grimoire-prototype.html`}>Ver protótipo anterior</a>
       </div>
 
     </main>

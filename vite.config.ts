@@ -7,27 +7,32 @@ function grimoireDirectoryRedirect(): Plugin {
   return {
     name: 'grimoire-directory-redirect',
     configureServer(server) {
-      server.middlewares.use(redirect)
+      server.middlewares.use(grimoireRedirect(server.config.base))
     },
     configurePreviewServer(server) {
-      server.middlewares.use(redirect)
+      server.middlewares.use(grimoireRedirect(server.config.base))
     },
   }
 }
 
-const redirect: import('vite').Connect.NextHandleFunction = (request, response, next) => {
-  const location = new URL(request.url ?? '/', 'http://localhost')
-  if (location.pathname !== '/grimorio-3d') {
-    next()
-    return
-  }
+function grimoireRedirect(base: string): import('vite').Connect.NextHandleFunction {
+  const route = `${base}grimorio-3d`
 
-  response.writeHead(307, { Location: `/grimorio-3d/${location.search}` })
-  response.end()
+  return (request, response, next) => {
+    const location = new URL(request.url ?? '/', 'http://localhost')
+    if (location.pathname !== route && location.pathname !== '/grimorio-3d') {
+      next()
+      return
+    }
+
+    response.writeHead(307, { Location: `${route}/${location.search}` })
+    response.end()
+  }
 }
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/alchemy-portfolio/',
   plugins: [react(), grimoireDirectoryRedirect()],
   build: {
     rolldownOptions: {
