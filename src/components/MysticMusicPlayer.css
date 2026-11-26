@@ -71,8 +71,19 @@
   border-color: #ffe19c;
   box-shadow: 0 0 .75rem #d66cffaa, inset 0 0 .55rem #bb45e599;
 }
-.mystic-music-volume { padding-inline-start: .55rem; border-inline-start: 1px solid #8749a966; }
-.mystic-music-volume input { width: 2.75rem; margin: 0; accent-color: #e49cff; }
+.mystic-music-volume {
+  flex-basis: 100%;
+  justify-content: center;
+  gap: .5rem;
+  border-block-start: 1px solid #8749a966;
+}
+.mystic-music-volume output {
+  min-width: 3ch;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.mystic-music-volume button[aria-disabled="true"] { opacity: .55; }
+.mystic-music-volume button:focus-visible { outline: 2px solid #ffe099; outline-offset: 2px; }
 .mystic-music-error { width: 100%; color: #f0c7ff; font-size: .8rem; }
 .mystic-music .mystic-music-close { position: absolute; inset: .25rem .25rem auto auto; }
 

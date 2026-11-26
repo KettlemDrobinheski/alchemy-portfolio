@@ -1,4 +1,4 @@
-import { Music2, Pause, Play, SkipBack, SkipForward, Volume2, X } from 'lucide-react'
+import { Minus, Music2, Pause, Play, Plus, SkipBack, SkipForward, X } from 'lucide-react'
 import { useEffect, useImperativeHandle, useRef, useState, type Ref } from 'react'
 import musicMedallion from '../assets/music-medallion.jpg'
 import './MysticMusicPlayer.css'
@@ -112,6 +112,12 @@ export function MysticMusicPlayer({ ref }: { ref?: Ref<{ playOpeningTrack: () =>
     disclosure.current?.focus()
   }
 
+  function adjustVolume(step: number) {
+    const nextVolume = Math.max(0, Math.min(100, volume + step))
+    setVolume(nextVolume)
+    if (player.current) player.current.volume = nextVolume / 100
+  }
+
   return (
     <section ref={container} className="mystic-music" aria-label="Trilha sonora do Alchemy" data-playing={playing} data-needs-activation={needsActivation}
       onKeyDown={(event) => {
@@ -149,15 +155,17 @@ export function MysticMusicPlayer({ ref }: { ref?: Ref<{ playOpeningTrack: () =>
             <SkipForward size={18} aria-hidden="true" />
           </button>
         </div>
-        <label className="mystic-music-volume">
-          <Volume2 size={18} aria-hidden="true" />
-          <input type="range" aria-label="Volume da trilha" aria-valuetext={`${volume}%`} min="0" max="100" value={volume}
-            onChange={(event) => {
-              const nextVolume = Number(event.currentTarget.value)
-              setVolume(nextVolume)
-              if (player.current) player.current.volume = nextVolume / 100
-            }} />
-        </label>
+        <div className="mystic-music-volume" role="group" aria-label="Volume da trilha">
+          <button type="button" aria-label="Diminuir volume" aria-disabled={volume === 0}
+            onClick={() => adjustVolume(-1)}>
+            <Minus size={20} aria-hidden="true" />
+          </button>
+          <output aria-label="Volume atual">{volume}%</output>
+          <button type="button" aria-label="Aumentar volume" aria-disabled={volume === 100}
+            onClick={() => adjustVolume(1)}>
+            <Plus size={20} aria-hidden="true" />
+          </button>
+        </div>
         {error && <p className="mystic-music-error" role="status">{error}</p>}
       </div>
       {needsActivation && (
