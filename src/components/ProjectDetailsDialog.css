@@ -183,8 +183,14 @@ html:has(.project-details-dialog[open]) { overflow: hidden; scrollbar-gutter: st
 .project-details-content .project-details-links ul:has(> .project-details-repository-item:only-child) {
   padding-inline-start: 0;
 }
-.project-details-repository-item { list-style: none; }
-.project-details-links a.project-details-repository {
+.project-details-content .project-details-links ul:has(> .project-details-demo-item) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+  padding-inline-start: 0;
+}
+.project-details-repository-item, .project-details-demo-item { list-style: none; }
+.project-details-links a:is(.project-details-repository, .project-details-demo) {
   display: inline-flex;
   align-items: center;
   gap: .5rem;
@@ -198,9 +204,9 @@ html:has(.project-details-dialog[open]) { overflow: hidden; scrollbar-gutter: st
   color: #ffe4bc;
   text-decoration: none;
 }
-.project-details-repository svg { width: 1.1rem; height: 1.1rem; flex: none; }
-.project-details-links a.project-details-repository:is(:hover, :focus-visible) { background: #5b2b6a; }
-.project-details-repository:focus-visible { outline: 2px solid #ffe4bc; outline-offset: 3px; }
+.project-details-links :is(.project-details-repository, .project-details-demo) svg { width: 1.1rem; height: 1.1rem; flex: none; }
+.project-details-links a:is(.project-details-repository, .project-details-demo):is(:hover, :focus-visible) { background: #5b2b6a; }
+.project-details-links :is(.project-details-repository, .project-details-demo):focus-visible { outline: 2px solid #ffe4bc; outline-offset: 3px; }
 
 .project-details-placeholder {
   display: grid;
