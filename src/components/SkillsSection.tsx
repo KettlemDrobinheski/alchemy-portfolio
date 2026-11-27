@@ -1,4 +1,5 @@
-﻿import { Atom, BookOpen, CodeXml, Database, FlaskConical, Layers3, Monitor, Server, UsersRound, Wrench } from 'lucide-react'
+﻿import { HomeLink } from './HomeLink'
+import { Atom, BookOpen, CodeXml, Database, FlaskConical, Layers3, Monitor, Server, UsersRound, Wrench } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { AlchemyMark } from './AlchemyMark'
 import './SkillsSection.css'
@@ -60,7 +61,7 @@ export function SkillsSection() {
   return (
     <section id="habilidades" className="skills-section" tabIndex={-1} aria-labelledby="habilidades-title">
       <div className="shell skills-return">
-        <a className="projects-page-back" href="#inicio">Voltar ao início</a>
+        <HomeLink />
       </div>
       <article className="skills-book">
         <div className="skills-leaf skills-intro" role="region" aria-label="Introdução e filosofia de aprendizado" tabIndex={0}>

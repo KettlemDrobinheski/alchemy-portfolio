@@ -1,4 +1,5 @@
-import { ArrowLeft, ExternalLink, Mail } from 'lucide-react'
+import { HomeLink } from './HomeLink'
+import { ExternalLink, Mail } from 'lucide-react'
 import contactDesk from '../assets/contact-magic-desk.png'
 import './ContactPage.css'
 
@@ -12,10 +13,7 @@ export function ContactPage() {
   return (
     <section id="contato" className="contact-page" aria-labelledby="contact-title">
       <div className="shell">
-        <a className="projects-page-back" href="#inicio">
-          <ArrowLeft size={18} aria-hidden="true" />
-          Voltar ao início
-        </a>
+        <HomeLink />
       </div>
       <article className="contact-scene">
         <img className="contact-art" src={contactDesk} alt="" width={1671} height={941} />

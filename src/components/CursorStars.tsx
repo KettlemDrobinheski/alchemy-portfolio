@@ -25,6 +25,9 @@ export function CursorStars() {
 
     const surface = canvas
     const brush = context
+    const dialog = canvas.closest('dialog')
+    const pointerSurface = dialog ?? document.documentElement
+    const moveTarget: Window | HTMLDialogElement = dialog ?? window
     const enabled = window.matchMedia('(any-hover: hover) and (any-pointer: fine) and (prefers-reduced-motion: no-preference)')
     let previous: Point | undefined
     let lastMove = -Infinity
@@ -77,12 +80,14 @@ export function CursorStars() {
       if (particles.length) scheduleDraw()
     }
 
-    function move(event: PointerEvent) {
-      if (event.pointerType !== 'mouse') {
+    function move(event: Event) {
+      if (!(event instanceof PointerEvent) || event.pointerType !== 'mouse') {
         forgetPointer()
         return
       }
 
+      if (!surface.width || !surface.height) resize()
+      if (!surface.width || !surface.height) return
       const now = performance.now()
       const current = { x: event.clientX, y: event.clientY }
       const start = previous && now - lastMove < TRAIL_GAP ? previous : current
@@ -111,7 +116,7 @@ export function CursorStars() {
       if (particles.length > MAX_PARTICLES) particles.splice(0, particles.length - MAX_PARTICLES)
       previous = current
       lastMove = now
-      document.documentElement.classList.add('has-light-cursor')
+      pointerSurface.classList.add('has-light-cursor')
       scheduleDraw()
     }
 
@@ -119,15 +124,16 @@ export function CursorStars() {
       const hadPointer = previous !== undefined
       previous = undefined
       lastMove = -Infinity
-      document.documentElement.classList.remove('has-light-cursor')
+      pointerSurface.classList.remove('has-light-cursor')
       if (hadPointer) scheduleDraw()
     }
 
     function stop() {
-      window.removeEventListener('pointermove', move)
+      moveTarget.removeEventListener('pointermove', move)
       window.removeEventListener('resize', resize)
       window.removeEventListener('blur', forgetPointer)
-      document.documentElement.removeEventListener('pointerleave', forgetPointer)
+      pointerSurface.removeEventListener('pointerleave', forgetPointer)
+      dialog?.removeEventListener('close', forgetPointer)
       forgetPointer()
       if (frame !== undefined) window.cancelAnimationFrame(frame)
       frame = undefined
@@ -143,10 +149,11 @@ export function CursorStars() {
       }
 
       resize()
-      window.addEventListener('pointermove', move, { passive: true })
+      moveTarget.addEventListener('pointermove', move, { passive: true })
       window.addEventListener('resize', resize)
       window.addEventListener('blur', forgetPointer)
-      document.documentElement.addEventListener('pointerleave', forgetPointer)
+      pointerSurface.addEventListener('pointerleave', forgetPointer)
+      dialog?.addEventListener('close', forgetPointer)
     }
 
     update()

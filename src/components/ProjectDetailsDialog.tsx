@@ -2,6 +2,7 @@ import { BookOpen, CodeXml, ExternalLink, Flag, Images, Lightbulb, ListChecks, M
 import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
 import type { ProjectDetails } from '../data/projectDetails'
 import { TechList } from './ProjectCard'
+import { CursorStars } from './CursorStars'
 import { ProjectScreenshotGallery } from './ProjectScreenshotGallery'
 import './ProjectDetailsDialog.css'
 
@@ -78,6 +79,7 @@ export function ProjectDetailsDialog({ project, trigger, onClose }: {
       onClick={(event) => {
         if (phase === 'open' && event.target === event.currentTarget) requestClose()
       }}>
+      <CursorStars />
       {flight && Seal && showFlight && (
         <div className="project-card-flight" aria-hidden="true" style={{
           left: flight.left, top: flight.top, width: flight.width, height: flight.height,

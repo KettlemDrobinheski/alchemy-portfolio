@@ -1,14 +1,11 @@
-﻿import { ArrowLeft } from 'lucide-react'
+﻿import { HomeLink } from './HomeLink'
 import './AboutPage.css'
 
 export function AboutPage() {
   return (
     <section id="sobre" className="about-scroll-page" tabIndex={-1} aria-labelledby="about-title">
       <div className="shell">
-        <a className="projects-page-back" href="#inicio">
-          <ArrowLeft size={18} aria-hidden="true" />
-          Voltar ao início
-        </a>
+        <HomeLink />
       </div>
       <article className="about-scroll">
         <div className="about-scroll-reading" role="region" aria-labelledby="about-title" tabIndex={0}>

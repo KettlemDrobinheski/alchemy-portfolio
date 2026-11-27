@@ -91,11 +91,6 @@
 
 .project-screenshot-viewer::backdrop { background: #08040ded; }
 
-.project-screenshot-viewer[open][aria-labelledby],
-.project-screenshot-viewer[open][aria-labelledby] * { cursor: auto !important; }
-.project-screenshot-viewer[open] button,
-.project-screenshot-viewer[open] button * { cursor: pointer !important; }
-
 .project-screenshot-viewer__panel {
   display: flex;
   flex-direction: column;
@@ -104,6 +99,10 @@
 }
 
 .project-screenshot-viewer header { flex: none; align-items: center; }
+
+.project-screenshot-viewer__navigation { display: flex; gap: .4rem; }
+.project-screenshot-viewer__navigation button { min-width: 44px; }
+.project-screenshot-viewer__navigation button[aria-disabled="true"] { opacity: .65; }
 
 .project-screenshot-viewer h3 {
   flex: 1 1 12rem;

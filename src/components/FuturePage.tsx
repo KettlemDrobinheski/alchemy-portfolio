@@ -1,4 +1,4 @@
-﻿import { ArrowLeft } from 'lucide-react'
+﻿import { HomeLink } from './HomeLink'
 import futureTarot from '../assets/future-tarot.png'
 import './FuturePage.css'
 
@@ -6,10 +6,7 @@ export function FuturePage() {
   return (
     <section id="futuro" className="future-page" aria-labelledby="future-title">
       <div className="shell">
-        <a className="projects-page-back" href="#inicio">
-          <ArrowLeft size={18} aria-hidden="true" />
-          Voltar ao início
-        </a>
+        <HomeLink />
       </div>
       <article className="future-scene">
         <img className="future-art" src={futureTarot} alt="" />

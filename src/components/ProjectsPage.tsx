@@ -1,4 +1,5 @@
-import { ArrowLeft, House, Settings, UserRound } from 'lucide-react'
+import { HomeLink } from './HomeLink'
+import { House, Settings, UserRound } from 'lucide-react'
 import { useState } from 'react'
 import gessoLiderArt from '../assets/projects/gessolider.png'
 import lupoCalibraArt from '../assets/projects/lupocalibra.png'
@@ -42,10 +43,7 @@ export function ProjectsPage() {
   return (
     <section id="projetos" className="projects-page" aria-labelledby="projects-title">
       <div className="shell projects-page-content">
-        <a className="projects-page-back" href="#inicio">
-          <ArrowLeft size={18} aria-hidden="true" />
-          Voltar ao início
-        </a>
+        <HomeLink />
         <Reveal immediate>
           <header className="projects-page-heading">
             <div className="projects-page-ornament" aria-hidden="true"><AlchemyMark size={36} /></div>

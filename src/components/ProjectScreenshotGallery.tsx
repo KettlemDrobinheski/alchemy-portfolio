@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react'
 import { useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import type { ProjectScreenshot } from '../data/projectDetails'
+import { CursorStars } from './CursorStars'
 import './ProjectScreenshotGallery.css'
 
 export function ProjectScreenshotGallery({ screenshots }: { screenshots: readonly ProjectScreenshot[] }) {
@@ -16,6 +17,14 @@ export function ProjectScreenshotGallery({ screenshots }: { screenshots: readonl
 
   function move(step: number) {
     setSelected((index) => Math.max(0, Math.min(last, index + step)))
+  }
+
+  function moveExpanded(step: number) {
+    const next = selected + step
+    if (next < 0 || next > last) return
+
+    imageArea.current?.scrollTo(0, 0)
+    move(step)
   }
 
   return (
@@ -64,9 +73,10 @@ export function ProjectScreenshotGallery({ screenshots }: { screenshots: readonl
             event.stopPropagation()
             if (event.target === event.currentTarget) event.currentTarget.close()
           }}>
+          <CursorStars />
           <div className="project-screenshot-viewer__panel">
             <header>
-              <h3 id={viewerTitle}>{screenshot.title}</h3>
+              <h3 id={viewerTitle} aria-live="polite">{screenshot.title}</h3>
               <button type="button" onClick={() => viewer.current?.close()}>
                 <X size={16} aria-hidden="true" /> Fechar ampliação
               </button>
@@ -76,6 +86,18 @@ export function ProjectScreenshotGallery({ screenshots }: { screenshots: readonl
               }}>
                 Tamanho original
               </button>
+              {originalSize && screenshots.length > 1 && (
+                <div className="project-screenshot-viewer__navigation" role="group" aria-label="Navegar pelas fotos">
+                  <button type="button" aria-label="Foto anterior" aria-disabled={selected === 0}
+                    onClick={() => moveExpanded(-1)}>
+                    <ChevronLeft size={20} aria-hidden="true" />
+                  </button>
+                  <button type="button" aria-label="Próxima foto" aria-disabled={selected === last}
+                    onClick={() => moveExpanded(1)}>
+                    <ChevronRight size={20} aria-hidden="true" />
+                  </button>
+                </div>
+              )}
             </header>
             <div ref={imageArea} className="project-screenshot-viewer__image-area" data-original={originalSize}
               tabIndex={originalSize ? 0 : undefined} role="region" aria-label="Área da captura ampliada">

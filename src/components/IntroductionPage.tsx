@@ -1,14 +1,11 @@
-import { ArrowLeft } from 'lucide-react'
+import { HomeLink } from './HomeLink'
 import './IntroductionPage.css'
 
 export function IntroductionPage() {
   return (
     <section className="introduction-page" aria-labelledby="introduction-title">
       <div className="shell">
-        <a className="projects-page-back" href="#inicio">
-          <ArrowLeft size={18} aria-hidden="true" />
-          Voltar ao início
-        </a>
+        <HomeLink />
       </div>
       <article className="introduction-parchment">
         <h1 id="introduction-title" aria-label="Capítulo I — A Introdução">

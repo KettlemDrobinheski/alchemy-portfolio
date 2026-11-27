@@ -38,12 +38,6 @@ html:has(.project-details-dialog[open]) { overflow: hidden; scrollbar-gutter: st
 .project-details-dialog[open] { display: grid; place-items: center; }
 .project-details-dialog::backdrop { background: #08040de0; }
 
-/* Show a visible cursor in the dialog, above the portfolio's light-cursor canvas. */
-.project-details-dialog[open][aria-labelledby],
-.project-details-dialog[open][aria-labelledby] * { cursor: auto !important; }
-.project-details-dialog[open][aria-labelledby] :is(button, a[href]),
-.project-details-dialog[open][aria-labelledby] :is(button, a[href]) * { cursor: pointer !important; }
-
 .project-details-panel {
   position: relative;
   width: min(100%, 74rem);
