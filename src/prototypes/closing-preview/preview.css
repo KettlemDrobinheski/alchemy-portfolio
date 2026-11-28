@@ -1,0 +1,47 @@
+.closing-preview {
+  min-height: 100svh;
+  background: #140b1a;
+}
+
+.closing-preview .closing-hall {
+  display: block;
+  background: #140b1a;
+}
+.closing-preview .closing-hall::before { content: none; }
+.closing-preview .closing-book-art { margin-inline: auto; }
+.closing-preview .closing-artwork { aspect-ratio: 1672 / 941; object-fit: contain; }
+
+.closing-preview .closing-farewell {
+  font-family: var(--serif);
+}
+.closing-preview .closing-farewell h2 { color: #ffe09b; }
+.closing-preview .closing-actions > * {
+  border-color: #d8a75b;
+  background: #381846;
+  color: #fff2d3;
+}
+.closing-preview .closing-actions button[aria-pressed='true'] { background: #682a59; }
+
+@media (min-width: 64rem) {
+  .closing-preview .closing-farewell {
+    inset: 19% 3.2% 25% 77.4%;
+    font-size: clamp(.8rem, 1.13cqw, 1.15rem);
+  }
+  .closing-preview .closing-farewell p { margin-block: .6em .85em; }
+  .closing-preview .closing-actions > * { min-height: 2.5rem; }
+}
+
+.closing-preview .forest-page { min-height: 100svh; }
+.closing-preview .forest-arrival[data-loaded='true'] .forest-arrival-view { animation: none; }
+.closing-preview .forest-arrival-ring { display: none; }
+.closing-preview-back {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  left: 1rem;
+  padding: .55rem .8rem;
+  border: 1px solid #d8a75b;
+  border-radius: .4rem;
+  color: #ffe2a2;
+  background: #241530;
+}

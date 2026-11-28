@@ -1,0 +1,93 @@
+.magic-creation {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  padding: clamp(3.7rem, 8vh, 5rem) 1rem 1.5rem;
+  background: radial-gradient(ellipse at 50% 20%, #49235d, #180e22 72%);
+}
+.magic-creation-book {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 9%;
+  width: min(100%, 68rem);
+  min-height: min(65vh, 42rem);
+  margin-inline: auto;
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(2.4rem, 7.5vw, 6rem);
+  color: #391447;
+  background: #f1d5a5 url('../../assets/skills-open-book.png') center / 100% 100% no-repeat;
+  font: 1rem/1.43 var(--serif);
+}
+.magic-creation-leaf { min-width: 0; }
+.magic-creation-leaf h2,
+.magic-creation-leaf h3 {
+  margin: 0 0 .8rem;
+  color: inherit;
+  font: 700 clamp(1.3rem, 2.4vw, 1.9rem)/1.12 var(--serif);
+  text-align: center;
+}
+.magic-creation-leaf h3 { font-size: clamp(1.17rem, 2.16vw, 1.71rem); }
+.magic-technology-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: .9rem;
+}
+.magic-technology-grid li {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: .2rem;
+  padding: .45rem .35rem;
+  border: 1px solid #a66936;
+  border-radius: .45rem;
+  background: #fff4d446;
+  text-align: center;
+}
+.magic-technology-grid li > span:last-child { color: #502e4d; font-size: .738rem; }
+.magic-technology-mark {
+  display: grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  color: #7c289e;
+}
+.magic-technology-mark :is(img, svg) { width: 100%; height: 100%; }
+.magic-technology-mark strong {
+  padding: .12rem .25rem;
+  border-radius: .2rem;
+  background: #1955a3;
+  color: #fff;
+  font: 700 .72rem/1.2 system-ui, sans-serif;
+}
+.magic-creation-story > svg { display: block; margin: 0 auto .65rem; color: #762395; }
+.magic-creation-story p { margin: 0 0 .8rem; }
+.magic-creation-back {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .55rem .8rem;
+  border: 1px solid #b58144;
+  border-radius: .4rem;
+  background: #482054;
+  color: #ffe9bb;
+  cursor: pointer;
+}
+.magic-creation-back:is(:hover, :focus-visible) { box-shadow: 0 0 .65rem #b74de2; }
+@media (max-width: 48rem) {
+  .magic-creation-book {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 0;
+    background: none;
+  }
+  .magic-creation-leaf {
+    padding: 1.2rem;
+    border: 2px solid #bd8850;
+    border-radius: .6rem;
+    background: radial-gradient(ellipse at top, #fff0cb, #edce9a);
+  }
+}
