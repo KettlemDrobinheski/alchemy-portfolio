@@ -30,24 +30,76 @@
 }
 .closing-farewell h2 { color: var(--gold); font-size: clamp(1.45rem, 2.6vw, 2.2rem); line-height: 1.18; }
 .closing-farewell p { margin-block: .85rem 1.25rem; line-height: 1.55; }
-.closing-farewell #portal-destination { margin: .8rem 0 0; }
+.closing-farewell .closing-like-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: .55rem 0 0;
+  color: #ffe0a2;
+  font: 700 .95em/1.2 var(--serif);
+}
+.closing-like-display {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .closing-like-display[data-changed='true'] { animation: closing-potion-glow .65s ease-out; }
+}
+@keyframes closing-potion-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+  35% { filter: brightness(1.55) drop-shadow(0 0 .45rem #e985ff); }
+}
+.closing-like-potion {
+  fill: #8636b6;
+  color: #efc1ff;
+  filter: drop-shadow(0 0 .24rem #c153fb);
+}
+.closing-farewell #portal-destination { margin: .55rem 0 0; }
 .closing-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; }
 .closing-actions > * {
+  position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: .5rem;
+  gap: .5em;
   min-height: 2.85rem;
-  padding: .55rem 1rem;
-  border: 1px solid #ce9bf3;
-  border-radius: .45rem;
-  color: #fff0ff;
-  background: #38204c;
+  padding: .55rem 1.25rem;
+  border: 1px solid #d9a95f;
+  border-radius: .55rem;
+  color: #ffe9b9;
+  background: radial-gradient(ellipse at top, #4d234b, #231027 80%);
+  box-shadow: inset 0 0 0 3px #32182b, inset 0 0 0 4px #bb854d85, 0 0 .65rem #8d40ac80;
+  font: 700 .95em/1.18 var(--serif);
+  text-align: center;
+  text-decoration: none;
   cursor: pointer;
-  text-underline-offset: .2em;
 }
-.closing-actions a { box-shadow: 0 0 1rem #a65ee265, inset 0 0 .8rem #a65ee243; }
-.closing-actions button[aria-pressed='true'] { background: #5e284d; border-color: #f3a7d4; }
+.closing-actions > *::before,
+.closing-actions > *::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: .26rem;
+  aspect-ratio: 1;
+  border: 1px solid #e7bb74;
+  background: #7d396d;
+  transform: translateY(-50%) rotate(45deg);
+  pointer-events: none;
+}
+.closing-actions > *::before { left: .25rem; }
+.closing-actions > *::after { right: .25rem; }
+.closing-actions svg { flex: none; color: #edc783; }
+.closing-actions a {
+  background: radial-gradient(ellipse at top, #64287f, #2b103e 83%);
+  box-shadow: inset 0 0 0 3px #3d1d4e, inset 0 0 0 4px #d4a45e99, 0 0 1rem #a65ee285;
+}
+.closing-actions > :is(:hover, :focus-visible) {
+  border-color: #ffe3a2;
+  box-shadow: inset 0 0 0 3px #341a40, inset 0 0 0 4px #e3b772b5, 0 0 1rem #c575f2b0;
+}
+.closing-actions button[aria-pressed='true'] { background: #612953; border-color: #f4c6a0; }
 .closing-actions button[aria-pressed='true'] svg { fill: #f3a7d4; color: #f3a7d4; }
 #portal-destination { color: #ddc4ed; font-size: .95rem; }
 
@@ -113,10 +165,8 @@
     url('../../assets/alchemy-library.png') center / cover no-repeat;
 }
 .closing-farewell { width: 100%; max-width: 36rem; margin: 1.25rem auto 0; }
-.closing-actions a { border-color: #d9af71; }
-.closing-actions > *:hover, .closing-actions > *:focus-visible { background: #582c6b; border-color: #ffe0a4; }
 @media (prefers-reduced-motion: no-preference) {
-  .closing-actions > * { transition: background-color .2s ease, border-color .2s ease; }
+  .closing-actions > * { transition: box-shadow .2s ease, border-color .2s ease; }
 }
 
 
@@ -157,7 +207,7 @@
   }
   .closing-farewell h2 { font-size: clamp(1rem, 1.65cqw, 1.8rem); }
   .closing-farewell .closing-actions { display: grid; gap: .5rem; }
-  .closing-farewell .closing-actions > * { padding-inline: .4rem; }
+  .closing-farewell .closing-actions > * { padding-inline: .85rem; }
   .closing-farewell #portal-destination { font-size: .9em; }
 }
 

@@ -1,0 +1,79 @@
+﻿.lab-horoscope {
+  position: absolute;
+  z-index: 1;
+  inset: 14% 15.5% 28% 53%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  border: 2px ridge #c7924b;
+  border-radius: .8rem;
+  background: radial-gradient(ellipse at top, #fff0ce, #edc995);
+  color: #391447;
+  box-shadow: inset 0 0 0 3px #f7d29d, 0 0 .85rem #742a7f;
+  font: .9rem/1.4 var(--serif);
+  text-align: left;
+}
+.lab-horoscope header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+  margin: .35rem .8rem 0;
+  padding-block: .35rem;
+  border-bottom: 1px solid #b37941;
+}
+.lab-horoscope h2, .lab-horoscope h3 { color: inherit; text-shadow: none; }
+.lab-horoscope h2 { margin: 0; font: 700 clamp(1rem, 1.9vw, 1.5rem)/1.1 var(--serif); }
+.lab-horoscope h3 { margin: .65rem 0 .1rem; font: 700 1em/1.2 var(--serif); }
+.lab-horoscope button {
+  border: 1px solid #b37941;
+  border-radius: .35rem;
+  padding: .25rem .45rem;
+  background: #53215d;
+  color: #ffe6ad;
+  cursor: pointer;
+}
+.lab-horoscope header button { display: grid; place-items: center; width: 2rem; height: 2rem; flex: none; }
+.lab-horoscope-reading {
+  min-height: 0;
+  overflow: auto;
+  padding: .65rem .8rem .8rem;
+  scrollbar-color: #925b3d #efdab4;
+  scrollbar-width: thin;
+}
+.lab-horoscope-reading:focus-visible { outline-offset: -3px; }
+.lab-horoscope-loading { display: flex; align-items: center; gap: .45rem; }
+.lab-horoscope-loading svg { width: 1.3rem; color: #8d20ab; }
+.lab-horoscope-result footer { margin-top: .85rem; padding-top: .55rem; border-top: 1px solid #b37941; font-size: .82em; }
+.lab-horoscope-result footer a { color: #572065; overflow-wrap: anywhere; text-decoration: underline; }
+.lab-horoscope-plain { white-space: pre-line; }
+.closing-preview .secret-grimoire:has(.lab-horoscope) :is(.secret-sign-selection, .secret-reveal-magic) { display: none; }
+
+@media (max-aspect-ratio: 4/3) {
+  .lab-horoscope { inset-inline: 53% 14.5%; }
+}
+@media (max-width: 48rem), (orientation: portrait) {
+  .lab-horoscope { inset: auto 1rem 1rem; max-height: 46dvh; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lab-horoscope-loading svg { animation: lab-horoscope-orb 1.4s ease-in-out infinite alternate; }
+  .lab-horoscope-result { animation: lab-horoscope-reveal .5s ease-out both; }
+  .lab-horoscope-reading:has(.lab-horoscope-result)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(112deg, transparent 34%, #ce79ef55 48%, #ffdd8f65 53%, transparent 67%);
+    pointer-events: none;
+    animation: lab-horoscope-beam .65s ease-out both;
+  }
+}
+@keyframes lab-horoscope-orb {
+  from { filter: drop-shadow(0 0 .1rem #a842d1); }
+  to { filter: drop-shadow(0 0 .45rem #b742ed); }
+}
+@keyframes lab-horoscope-reveal { from { opacity: .35; } to { opacity: 1; } }
+@keyframes lab-horoscope-beam {
+  from { transform: translateX(-65%); opacity: .9; }
+  to { transform: translateX(65%); opacity: 0; }
+}

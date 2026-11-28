@@ -15,12 +15,6 @@
   font-family: var(--serif);
 }
 .closing-preview .closing-farewell h2 { color: #ffe09b; }
-.closing-preview .closing-actions > * {
-  border-color: #d8a75b;
-  background: #381846;
-  color: #fff2d3;
-}
-.closing-preview .closing-actions button[aria-pressed='true'] { background: #682a59; }
 
 @media (min-width: 64rem) {
   .closing-preview .closing-farewell {
