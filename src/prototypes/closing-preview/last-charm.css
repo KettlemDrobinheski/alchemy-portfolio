@@ -1,0 +1,178 @@
+.closing-preview:has(.last-charm) .closing-farewell :is(a[href='#/floresta-encantada'], #portal-destination) {
+  display: none;
+}
+
+.last-charm {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(2rem, 7vw, 6rem) clamp(.75rem, 4vw, 2rem);
+  background: radial-gradient(ellipse at 50% 0%, #4d2159, #1f1028 58%, #140b1a);
+}
+
+.last-charm::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: #10071977;
+}
+
+.last-charm-paper {
+  position: relative;
+  isolation: isolate;
+  max-width: 53rem;
+  margin-inline: auto;
+  padding: clamp(1.35rem, 5.5vw, 4.25rem);
+  border: 3px ridge #f6c778;
+  border-radius: 3rem 3rem 2.3rem 2.3rem / 1.9rem;
+  color: #3c2041;
+  background:
+    repeating-linear-gradient(25deg, #6d371709 0 1px, transparent 1px 29px),
+    radial-gradient(ellipse at 48% 20%, #fff0d2 12%, #f3d7ab 66%, #dca572);
+  box-shadow: inset 0 0 0 3px #754148, inset 0 0 0 5px #efbf72,
+    inset 0 0 2.75rem #82382d78, 0 0 2.2rem #ac55b54f, 0 1rem 3rem #0b050fbd;
+  font: clamp(1rem, 2vw, 1.23rem)/1.65 var(--serif, Georgia, serif);
+}
+
+.last-charm-paper::before {
+  content: '';
+  position: absolute;
+  inset: .7rem;
+  border: 1px solid #9361329c;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 0 0, transparent 55%, #81503a 57%, #e2ad58 61%, transparent 66%) top left,
+    radial-gradient(ellipse at 100% 0, transparent 55%, #81503a 57%, #e2ad58 61%, transparent 66%) top right,
+    radial-gradient(ellipse at 0 100%, transparent 55%, #81503a 57%, #e2ad58 61%, transparent 66%) bottom left,
+    radial-gradient(ellipse at 100% 100%, transparent 55%, #81503a 57%, #e2ad58 61%, transparent 66%) bottom right;
+  background-repeat: no-repeat;
+  background-size: 2.5rem 2.1rem;
+}
+
+.last-charm-header,
+.last-charm-actions { position: relative; text-align: center; }
+.last-charm-seal { display: block; color: #754461; letter-spacing: .22em; }
+.last-charm-header h2 {
+  margin: 0;
+  color: #512453;
+  font: 700 clamp(1.5rem, 5vw, 3.4rem)/1.15 var(--display, Georgia, serif);
+}
+.last-charm-header h2 span { color: #815226; }
+.last-charm-header p { margin: .55rem 0 0; }
+.last-charm-letter {
+  position: relative;
+  max-width: 61ch;
+  margin: 1.5rem auto 0;
+  padding-top: 1.15rem;
+  border-top: 1px solid #9c683b88;
+}
+.last-charm-letter p { margin: 0 0 .9rem; }
+.last-charm-letter blockquote {
+  margin: .45rem 0 1.1rem;
+  padding: .8rem 1rem;
+  border-inline-start: 2px solid #ae7738;
+  background: #ffedbf88;
+  color: #542552;
+}
+.last-charm-letter .last-charm-signature { text-align: end; }
+.last-charm-actions {
+  margin-top: 1.3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #9c683b88;
+}
+.last-charm-actions p { margin: .55rem 0 0; }
+.last-charm-portal {
+  display: inline-grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .45em;
+  min-height: 2.75rem;
+  padding: .65rem clamp(.55rem, 2vw, 1.4rem);
+  border: 2px ridge #e7b868;
+  border-radius: .65rem;
+  color: #ffe8af;
+  background: radial-gradient(ellipse at top, #63305d, #361739);
+  box-shadow: 0 .25rem .7rem #592b5159;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.last-charm-portal:is(:hover, :focus-visible) { outline: 2px solid #642e62; outline-offset: 3px; }
+
+.last-charm-magic {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  container-type: inline-size;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.last-charm-orb,
+.last-charm-trail {
+  position: absolute;
+  top: 1.2rem;
+  left: 12%;
+  opacity: 0;
+}
+.last-charm-orb {
+  width: 1rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff6c2 15%, #f7b758 48%, transparent 73%);
+  box-shadow: 0 0 1.4rem .35rem #edac62b3;
+}
+.last-charm-trail {
+  width: 38%;
+  height: .75rem;
+  background:
+    radial-gradient(circle at 12% 19%, #dc8af9 0 2px, transparent 4px),
+    radial-gradient(circle at 42% 66%, #ffd87f 0 2px, transparent 4px),
+    radial-gradient(circle at 68% 23%, #c072ec 0 2px, transparent 4px),
+    radial-gradient(ellipse at center, #f5b964b0, #be73e57a 48%, transparent 74%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .last-charm[data-revealing='true']::before { animation: last-charm-dim .85s ease-out both; }
+  .last-charm[data-revealing='true'] .last-charm-orb { animation: last-charm-orbit 1.85s ease-in-out both; }
+  .last-charm[data-revealing='true'] .last-charm-trail { animation: last-charm-trace 1.95s .13s ease-out both; }
+  .last-charm[data-revealing='true'] .last-charm-header { animation: last-charm-ink .55s .2s ease-out both; }
+  .last-charm[data-revealing='true'] .last-charm-letter > * {
+    animation: last-charm-ink .52s calc(.34s + var(--line, 0) * .1s) ease-out both;
+  }
+  .last-charm-letter > :nth-child(2) { --line: 1; }
+  .last-charm-letter > :nth-child(3) { --line: 2; }
+  .last-charm-letter > :nth-child(4) { --line: 3; }
+  .last-charm-letter > :nth-child(5) { --line: 4; }
+  .last-charm-letter > :nth-child(6) { --line: 5; }
+  .last-charm-letter > :nth-child(7) { --line: 6; }
+  .last-charm-letter > :nth-child(8) { --line: 7; }
+  .last-charm-letter > :nth-child(9) { --line: 8; }
+  .last-charm[data-revealing='true'] .last-charm-letter blockquote {
+    animation: last-charm-ink .52s 1.04s ease-out both, last-charm-gold .85s 1.2s ease-out;
+  }
+  .last-charm[data-revealing='true'] .last-charm-actions { animation: last-charm-ink .55s .65s ease-out both; }
+  .last-charm[data-revealing='true'] .last-charm-actions:focus-within { animation: none; }
+}
+
+@keyframes last-charm-dim { from { opacity: .1; } to { opacity: 1; } }
+@keyframes last-charm-orbit {
+  0% { opacity: 0; transform: translate(0, .7rem); }
+  23% { opacity: .9; }
+  62% { transform: translate(48cqw, -.4rem); }
+  82% { opacity: .7; }
+  100% { opacity: 0; transform: translate(74cqw, .9rem); }
+}
+@keyframes last-charm-trace {
+  0% { opacity: 0; transform: translate(-15%, .9rem) scaleX(.15); }
+  35% { opacity: .72; }
+  100% { opacity: 0; transform: translate(105%, .2rem) scaleX(1); }
+}
+@keyframes last-charm-ink {
+  from { opacity: .68; transform: translateY(.33rem); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes last-charm-gold {
+  50% { box-shadow: 0 0 1rem #d69b4f98; }
+}

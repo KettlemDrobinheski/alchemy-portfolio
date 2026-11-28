@@ -1,0 +1,228 @@
+﻿/* The dialog stays in the top layer so its existing controls remain usable. */
+.secret-grimoire[open]:has(.lab-horoscope):has(.secret-stage:not([hidden])) {
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(.75rem, 3vw, 3rem);
+  padding: 3.75rem clamp(1rem, 3vw, 3rem) 1.25rem;
+  box-sizing: border-box;
+}
+
+.secret-grimoire:has(.lab-horoscope) .secret-stage:not([hidden]) {
+  width: min(100%, calc((100dvh - 5rem) * 16 / 9));
+}
+
+.secret-grimoire:has(.secret-stage[hidden]) :is(.lab-horoscope, .lab-horoscope-beam) { display: none; }
+
+.lab-horoscope {
+  position: relative;
+  grid-area: 1 / 2;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 39rem);
+  height: min(100%, 47rem);
+  min-height: 0;
+  border: 3px ridge #f4bb62;
+  border-radius: 2.6rem 2.6rem 2rem 2rem / 1.6rem;
+  padding: clamp(.38rem, 1vw, .7rem);
+  box-sizing: border-box;
+  background:
+    radial-gradient(ellipse at 50% 0%, #7a228f, transparent 55%),
+    radial-gradient(ellipse at 50% 100%, #671581, transparent 55%),
+    linear-gradient(115deg, #1c052a, #380745 54%, #180322);
+  color: #36133e;
+  box-shadow: inset 0 0 0 2px #6c314f, inset 0 0 0 4px #e2a851,
+    0 0 2.2rem #ad39d476, 0 .65rem 2rem #0c031a;
+  font: 1rem/1.55 var(--serif, Georgia, serif);
+  text-align: left;
+}
+
+/* Gilded filigree at the corners and a crystal at the crown. */
+.lab-horoscope::before,
+.lab-horoscope::after {
+  position: absolute;
+  content: '';
+  pointer-events: none;
+}
+.lab-horoscope::before {
+  z-index: 1;
+  inset: 2px;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse at 0 0, transparent 55%, #ffdb86 57%, #99521d 62%, transparent 65%) top left,
+    radial-gradient(ellipse at 100% 0, transparent 55%, #ffdb86 57%, #99521d 62%, transparent 65%) top right,
+    radial-gradient(ellipse at 0 100%, transparent 55%, #ffdb86 57%, #99521d 62%, transparent 65%) bottom left,
+    radial-gradient(ellipse at 100% 100%, transparent 55%, #ffdb86 57%, #99521d 62%, transparent 65%) bottom right;
+  background-size: 3.3rem 2.5rem;
+  background-repeat: no-repeat;
+}
+.lab-horoscope::after {
+  z-index: 2;
+  top: -.65rem;
+  left: calc(50% - .58rem);
+  width: 1.15rem;
+  aspect-ratio: 1;
+  transform: rotate(45deg);
+  border: 1px solid #ffe6a3;
+  background: conic-gradient(from 45deg, #6d137b, #e97eff, #4d095e, #fbd4ff, #6d137b);
+  box-shadow: 0 0 1.05rem .2rem #df56ff;
+}
+
+.lab-horoscope-header {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(.55rem, 2vw, 1.45rem);
+  min-width: 0;
+  padding: .65rem 2.8rem .85rem .6rem;
+  color: #ffdf9b;
+  text-shadow: 0 0 .75rem #e54ff27a;
+  background: radial-gradient(circle at 15% 26%, #f1bdff 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 30%, #ffe3a2 0 1px, transparent 2px),
+    radial-gradient(circle at 72% 79%, #df8eff 0 1px, transparent 2px);
+}
+.lab-horoscope-header h2 {
+  margin: 0;
+  color: inherit;
+  font: 700 clamp(1.45rem, 4vw, 2.75rem)/1.05 var(--display, Georgia, serif);
+  overflow-wrap: anywhere;
+}
+.lab-horoscope-header p {
+  margin: .26rem 0 0;
+  border-top: 1px solid #d79b4b84;
+  font-weight: 700;
+}
+.lab-horoscope-header time { display: block; font-size: .9em; }
+.lab-horoscope-symbol {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: clamp(2.5rem, 6vw, 5rem);
+  aspect-ratio: 1;
+  border: 2px ridge #ffce72;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 28%, #8b3195, #290631 73%);
+  box-shadow: inset 0 0 .65rem #e1a75091, 0 0 1.05rem #c449e477;
+  font: clamp(1.7rem, 4.4vw, 3.45rem)/1 Georgia, serif;
+}
+.lab-horoscope button {
+  border: 1px solid #d5a254;
+  padding: .35rem .65rem;
+  border-radius: .45rem;
+  background: #53215d;
+  color: #ffe6ad;
+  cursor: pointer;
+}
+.lab-horoscope .lab-horoscope-close {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  aspect-ratio: 1;
+  padding: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #8c3298, #33083f 70%);
+  box-shadow: inset 0 0 0 2px #32103e, 0 0 .75rem #bc42d998;
+}
+.lab-horoscope button:is(:hover, :focus-visible) { outline: 2px solid #dfae5d; outline-offset: 2px; }
+
+.lab-horoscope-reading {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: .9rem clamp(.65rem, 2.4vw, 1.65rem) 1rem;
+  border: 1px solid #d19451;
+  border-radius: .9rem;
+  background:
+    repeating-linear-gradient(122deg, #87532608 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(31deg, #87532607 0 1px, transparent 1px 33px),
+    radial-gradient(ellipse at center, #fff0cf 15%, #f5d9ab 65%, #dda36d);
+  box-shadow: inset 0 0 1.25rem #8d4a2a45;
+  scrollbar-color: #712a80 #eac083;
+  scrollbar-width: thin;
+  overflow-wrap: anywhere;
+}
+.lab-horoscope-reading:focus-visible { outline: 2px solid #732486; outline-offset: -4px; }
+.lab-horoscope-reading p { margin: 0; white-space: pre-wrap; }
+.lab-horoscope-reading [role='status'] button { margin-top: .65rem; }
+.lab-horoscope-loading { display: flex; align-items: center; gap: .55rem; }
+.lab-horoscope-loading svg { flex: none; width: 1.3rem; color: #8d20ab; }
+.lab-horoscope-notice { padding-bottom: .6rem; font-size: .9em; }
+.lab-horoscope-topic {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .65rem;
+  padding: .7rem 0;
+}
+.lab-horoscope-topic + .lab-horoscope-topic { border-top: 1px solid #9c63286b; }
+.lab-horoscope-topic h3 {
+  margin: 0 0 .18rem;
+  color: #4f155a;
+  font: 700 1.2em/1.15 var(--serif, Georgia, serif);
+}
+.lab-horoscope-icon {
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  aspect-ratio: 1;
+  border: 1px solid #ab6b32;
+  border-radius: 50%;
+  color: #56135c;
+  background: radial-gradient(circle at 34% 28%, #fff1ba, #efba6c 65%, #b9773e);
+}
+.lab-horoscope-result footer {
+  margin-top: .65rem;
+  padding-top: .75rem;
+  border-top: 1px solid #9c632895;
+  font-size: .9em;
+}
+.lab-horoscope-result footer a { color: #572065; text-decoration: underline; }
+
+.lab-horoscope-beam {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 1.1rem;
+  aspect-ratio: 1;
+  opacity: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff6c4 12%, #ef98ff 36%, #a128e800 72%);
+  box-shadow: 0 0 1.8rem .3rem #da59ff, -.65rem .3rem .65rem #ffbb63, .7rem -.4rem .5rem #d069f2;
+  pointer-events: none;
+}
+
+@media (max-width: 58rem) {
+  .secret-grimoire[open]:has(.lab-horoscope):has(.secret-stage:not([hidden])) {
+    grid-template: minmax(0, 2fr) minmax(0, 3fr) / minmax(0, 1fr);
+    gap: .7rem;
+    padding: 3.4rem .75rem .75rem;
+    padding-bottom: max(.75rem, env(safe-area-inset-bottom));
+  }
+  .secret-grimoire:has(.lab-horoscope) .secret-stage:not([hidden]) {
+    width: min(100%, calc((100dvh - 5rem) * .69));
+  }
+  .lab-horoscope { grid-area: 2 / 1; align-self: stretch; }
+  .lab-horoscope-header { padding-block: .35rem .55rem; }
+  .lab-horoscope-reading { font-size: .95rem; }
+}
+
+@media (max-width: 58rem) and (max-height: 32rem) and (orientation: landscape) {
+  .secret-grimoire[open]:has(.lab-horoscope):has(.secret-stage:not([hidden])) {
+    grid-template: minmax(0, 1fr) / repeat(2, minmax(0, 1fr));
+  }
+  .secret-grimoire:has(.lab-horoscope) .secret-stage:not([hidden]) { width: 100%; }
+  .lab-horoscope { grid-area: 1 / 2; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lab-horoscope-result { animation: lab-horoscope-text .4s ease-out both; }
+}
+@keyframes lab-horoscope-text { from { opacity: .55; } to { opacity: 1; } }

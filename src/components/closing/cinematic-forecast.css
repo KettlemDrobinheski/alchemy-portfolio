@@ -1,0 +1,118 @@
+.cinematic-forecast { display: contents; }
+.secret-grimoire:has(.secret-stage[hidden]) .cinematic-forecast { display: none; }
+
+.cinematic-forecast-light,
+.cinematic-forecast-sparks {
+  z-index: 3;
+  will-change: transform, opacity;
+}
+
+.cinematic-forecast-sparks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4rem;
+  aspect-ratio: 1;
+  opacity: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 16% 34%, #f7cb85 0 1px, transparent 3px),
+    radial-gradient(circle at 37% 12%, #e2a2fc 0 1px, transparent 3px),
+    radial-gradient(circle at 76% 24%, #f8ce97 0 1px, transparent 3px),
+    radial-gradient(circle at 86% 65%, #ce77ee 0 1px, transparent 3px),
+    radial-gradient(circle at 45% 86%, #e8b9fc 0 1px, transparent 3px),
+    radial-gradient(circle at 18% 69%, #f8ce97 0 1px, transparent 3px);
+}
+
+.cinematic-forecast-ornament {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.cinematic-forecast-ornament::before,
+.cinematic-forecast-ornament::after,
+.cinematic-forecast-wave {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.cinematic-forecast-ornament::before {
+  content: '';
+  background: radial-gradient(ellipse at 40% 15%, #ffe5ad9c, #d996f887 25%, transparent 64%);
+}
+.cinematic-forecast-ornament::after {
+  content: '';
+  background:
+    radial-gradient(circle at 5% 11%, #da9af7 0 2px, transparent 5px),
+    radial-gradient(circle at 91% 15%, #efbcf9 0 2px, transparent 5px),
+    radial-gradient(circle at 3% 53%, #efbcf9 0 2px, transparent 6px),
+    radial-gradient(circle at 97% 57%, #de97f8 0 2px, transparent 6px),
+    radial-gradient(circle at 10% 87%, #d995f6 0 2px, transparent 6px),
+    radial-gradient(circle at 86% 90%, #efbcf9 0 2px, transparent 5px);
+}
+.cinematic-forecast-wave {
+  inset-block-start: 22%;
+  background: linear-gradient(108deg, transparent 32%, #9e42bd55 47%, #ffdf8daa 52%, transparent 68%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cinematic-forecast[data-opening='true'][data-exiting='false'] .lab-horoscope {
+    animation: cinematic-frame-in 3s cubic-bezier(.2, .7, .3, 1) both;
+  }
+  .cinematic-forecast[data-opening='true'][data-exiting='false'] .lab-horoscope-header {
+    animation: cinematic-ink-in .65s 1.63s ease-out both;
+  }
+  .cinematic-forecast[data-opening='true'][data-exiting='false'] .lab-horoscope-reading {
+    animation: cinematic-ink-in .78s 2.15s ease-out both;
+  }
+  .cinematic-forecast[data-opening='true'][data-exiting='false'] .cinematic-forecast-ornament::before {
+    animation: cinematic-fog 1.28s 1.55s ease-out both;
+  }
+  .cinematic-forecast[data-exiting='true'] .lab-horoscope {
+    animation: cinematic-frame-out 2.5s ease-in-out both;
+  }
+  .cinematic-forecast[data-exiting='true'] .lab-horoscope-header {
+    --exit-ink-opacity: var(--exit-header-opacity);
+    animation: cinematic-ink-out .7s ease-in both;
+  }
+  .cinematic-forecast[data-exiting='true'] .lab-horoscope-reading {
+    --exit-ink-opacity: var(--exit-reading-opacity);
+    animation: cinematic-ink-out .7s ease-in both;
+  }
+  .cinematic-forecast[data-exiting='true'] .cinematic-forecast-ornament::after {
+    animation: cinematic-edges .95s .37s ease-out both;
+  }
+  .cinematic-forecast[data-exiting='false'] .lab-horoscope:focus-within,
+  .cinematic-forecast[data-exiting='false'] .lab-horoscope:focus-within :is(.lab-horoscope-header, .lab-horoscope-reading) {
+    animation: none;
+  }
+}
+
+@keyframes cinematic-frame-in {
+  0%, 35% { opacity: 0; transform: translateY(.45rem) scale(.97); }
+  67% { opacity: .88; }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes cinematic-ink-in { from { opacity: 0; transform: translateY(.35rem); } to { opacity: 1; transform: none; } }
+@keyframes cinematic-ink-out {
+  from { opacity: var(--exit-ink-opacity, 1); }
+  to { opacity: 0; transform: translateY(-.2rem); }
+}
+@keyframes cinematic-frame-out {
+  0%, 16% { opacity: var(--exit-frame-opacity, 1); transform: none; }
+  32% { box-shadow: inset 0 0 .65rem #ffd48e, 0 0 1.45rem #eeb965a0; }
+  59%, 100% { opacity: 0; transform: translateY(.45rem) scale(.96); }
+}
+@keyframes cinematic-fog {
+  0% { opacity: 0; transform: scale(.64); }
+  40% { opacity: .7; }
+  100% { opacity: 0; transform: scale(1.12); }
+}
+@keyframes cinematic-edges {
+  0% { opacity: 0; transform: scale(.93); }
+  35% { opacity: .85; }
+  100% { opacity: 0; transform: scale(1.08); }
+}

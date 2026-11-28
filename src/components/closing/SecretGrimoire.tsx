@@ -2,16 +2,16 @@ import { X } from 'lucide-react'
 import { useReducedMotion } from 'motion/react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import openBook from './grimorio-aberto.png'
+import { CinematicForecast } from './CinematicForecast'
 import { MagicCreation } from './MagicCreation'
+import { zodiac, type ZodiacSign } from './astroway'
 import './secret-grimoire.css'
 
 const signs = [
-  ['Áries', 542, 337], ['Touro', 649, 337], ['Gêmeos', 755, 337], ['Câncer', 859, 337],
-  ['Leão', 532, 473], ['Virgem', 643, 473], ['Libra', 756, 473], ['Escorpião', 867, 473],
-  ['Sagitário', 528, 617], ['Capricórnio', 646, 617], ['Aquário', 762, 617], ['Peixes', 879, 617],
-] as const
-
-type Sign = (typeof signs)[number][0]
+  ['aries', 542, 337], ['taurus', 649, 337], ['gemini', 755, 337], ['cancer', 859, 337],
+  ['leo', 532, 473], ['virgo', 643, 473], ['libra', 756, 473], ['scorpio', 867, 473],
+  ['sagittarius', 528, 617], ['capricorn', 646, 617], ['aquarius', 762, 617], ['pisces', 879, 617],
+] as const satisfies readonly (readonly [ZodiacSign, number, number])[]
 
 export function SecretGrimoire({ onClose }: { onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null)
@@ -22,7 +22,8 @@ export function SecretGrimoire({ onClose }: { onClose: () => void }) {
   const reducedMotion = useReducedMotion()
   const [closing, setClosing] = useState(false)
   const [loaded, setLoaded] = useState(false)
-  const [selectedSign, setSelectedSign] = useState<Sign | null>(null)
+  const [selection, setSelection] = useState<{ sign: ZodiacSign; origin: HTMLButtonElement } | null>(null)
+  const [forecastClosing, setForecastClosing] = useState(false)
   const [magicRevealed, setMagicRevealed] = useState(false)
 
   function requestClose() {
@@ -30,6 +31,19 @@ export function SecretGrimoire({ onClose }: { onClose: () => void }) {
     if (reducedMotion || !loaded || magicRevealed) dialog.current?.close()
     else setClosing(true)
   }
+
+  function finishForecast() {
+    setSelection(null)
+    setForecastClosing(false)
+    if (!magicRevealed && !closing) selection?.origin.focus({ preventScroll: true })
+  }
+
+  function closeForecast() {
+    if (!reducedMotion) setForecastClosing(true)
+    else finishForecast()
+  }
+
+  const interceptEscape = Boolean(selection && !magicRevealed && !closing)
 
   useLayoutEffect(() => {
     const element = dialog.current
@@ -52,9 +66,15 @@ export function SecretGrimoire({ onClose }: { onClose: () => void }) {
   return (
     <dialog ref={dialog} className="secret-grimoire" aria-label="Grimório do Segredo do Alchemy"
       data-closing={closing} onClose={onClose}
+      onKeyDown={(event) => {
+        if (event.key !== 'Escape' || !interceptEscape) return
+        event.preventDefault()
+        closeForecast()
+      }}
       onCancel={(event) => {
         event.preventDefault()
-        requestClose()
+        if (interceptEscape) closeForecast()
+        else requestClose()
       }}>
       <div className="secret-stage" data-loaded={loaded} hidden={magicRevealed}
         onAnimationEnd={(event) => {
@@ -66,9 +86,16 @@ export function SecretGrimoire({ onClose }: { onClose: () => void }) {
         {loaded && signs.map(([sign, x, y]) => (
           <button key={sign} type="button" className="secret-sign" disabled={closing}
             style={{ left: (x / 1920 * 100) + '%', top: (y / 1080 * 100) + '%' }}
-            aria-pressed={selectedSign === sign}
-            onClick={() => setSelectedSign((current) => current === sign ? null : sign)}>
-            <span>{sign}</span>
+            aria-pressed={selection?.sign === sign}
+            onClick={(event) => {
+              const origin = event.currentTarget
+              if (selection?.sign === sign && !forecastClosing) closeForecast()
+              else {
+                setForecastClosing(false)
+                setSelection({ sign, origin })
+              }
+            }}>
+            <span>{zodiac[sign][0]}</span>
           </button>
         ))}
         {loaded && (
@@ -77,8 +104,11 @@ export function SecretGrimoire({ onClose }: { onClose: () => void }) {
             REVELAR MAGIA
           </button>
         )}
-        <output className="secret-sign-selection">{selectedSign}</output>
       </div>
+      {selection && (
+        <CinematicForecast sign={selection.sign} origin={selection.origin} closing={forecastClosing}
+          onClose={closeForecast} onExit={finishForecast} />
+      )}
       {magicRevealed && (
         <MagicCreation headingRef={creationHeading} onBack={() => {
           returningToSigns.current = true
