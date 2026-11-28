@@ -1,4 +1,4 @@
-import { CodeXml, House, Layers3, Mail, UserRound } from 'lucide-react'
+﻿import { CodeXml, House, Layers3, Mail, UserRound } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { AlchemyMark } from './AlchemyMark'
 import { ResumeScroll } from './ResumeScroll'
@@ -20,7 +20,7 @@ export function Brand({ compact = false }: { compact?: boolean }) {
   )
 }
 
-export function Navbar({ environment, musicPlayer }: { musicPlayer: ReactNode; environment: 'projetos' | 'sobre' | 'habilidades' | 'introducao' | 'futuro' | 'contato' | null }) {
+export function Navbar({ environment, musicPlayer }: { musicPlayer: ReactNode; environment: 'projetos' | 'sobre' | 'habilidades' | 'introducao' | 'futuro' | 'contato' | 'ultimo-capitulo' | 'floresta-encantada' | null }) {
   const [open, setOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('inicio')
   const toggle = useRef<HTMLButtonElement>(null)

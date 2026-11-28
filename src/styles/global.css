@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   font-family: Inter, system-ui, sans-serif;
   color: #d8c5f5;
   background: #09080f;
@@ -931,7 +931,7 @@ h2 { font-family: var(--serif); font-weight: 700; }
   .home-chapter-card { transition: box-shadow .2s ease, border-color .2s ease; }
 }
 @media (min-width: 88rem) {
-  .home-chapters { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .home-chapters { grid-template-columns: repeat(7, minmax(0, 1fr)); }
 }
 @media (max-width: 62rem) {
   .home-chapters { grid-template-columns: repeat(2, minmax(0, 1fr)); }

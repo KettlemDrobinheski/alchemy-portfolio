@@ -1,5 +1,5 @@
-import { CodeXml, Compass, House, Layers3, Mail, UserRound } from 'lucide-react'
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from 'react'
+﻿import { BookOpen, CodeXml, Compass, House, Layers3, Mail, UserRound } from 'lucide-react'
+import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from 'react'
 import { AlchemyMark } from './components/AlchemyMark'
 import { Brand, Navbar } from './components/Navbar'
 import { Portrait } from './components/Portrait'
@@ -17,6 +17,17 @@ import { FuturePage } from './components/FuturePage'
 import { ContactPage } from './components/ContactPage'
 import { HomeSprite, HomeSprites } from './components/HomeSprites'
 
+const CreationBook = lazy(() => import('./components/closing/CreationBook').then(({ CreationBook }) => ({ default: CreationBook })))
+const ForestArrival = lazy(() => import('./components/closing/ForestArrival').then(({ ForestArrival }) => ({ default: ForestArrival })))
+
+function reopenEntrance() {
+  try {
+    sessionStorage.removeItem(entranceKey)
+  } catch {
+    // The opening portal is shown by default when storage is unavailable.
+  }
+}
+
 const chapters = [
   { title: 'O Início', subtitle: 'Capítulo I — A Introdução', href: '#/introducao', icon: House },
   { title: 'Sobre Mim', subtitle: 'Capítulo II — A Jornada', href: '#/sobre', icon: UserRound },
@@ -24,6 +35,7 @@ const chapters = [
   { title: 'Projetos', subtitle: 'Capítulo IV — As Criações', href: '#/projetos', icon: CodeXml },
   { title: 'O Futuro', subtitle: 'Capítulo V — O Próximo Capítulo', href: '#/futuro', icon: Compass },
   { title: 'Contato', subtitle: 'Capítulo VI — Novas Conexões', href: '#/contato', icon: Mail },
+  { title: 'O Último Capítulo', subtitle: 'Onde o código encontra a magia.', href: '#/ultimo-capitulo', icon: BookOpen },
 ]
 
 const entranceKey = 'alchemy.portal.entered'
@@ -51,7 +63,9 @@ function App() {
     : hash === '#/habilidades' || hash === '#habilidades' ? 'habilidades'
     : hash === '#/introducao' ? 'introducao'
     : hash === '#/futuro' || hash === '#futuro' ? 'futuro'
-    : hash === '#/contato' || hash === '#contato' ? 'contato' : null
+    : hash === '#/contato' || hash === '#contato' ? 'contato'
+    : hash === '#/ultimo-capitulo' ? 'ultimo-capitulo'
+    : hash === '#/floresta-encantada' ? 'floresta-encantada' : null
   const previousPage = useRef(false)
 
   useEffect(() => {
@@ -129,7 +143,14 @@ function App() {
           : environment === 'habilidades' ? <SkillsSection />
           : environment === 'introducao' ? <IntroductionPage />
           : environment === 'futuro' ? <FuturePage />
-          : environment === 'contato' ? <ContactPage /> : (
+          : environment === 'contato' ? <ContactPage />
+          : environment === 'ultimo-capitulo' ? (
+            <Suspense fallback={<p className="shell" role="status">Abrindo o último capítulo…</p>}><CreationBook /></Suspense>
+          ) : environment === 'floresta-encantada' ? (
+            <Suspense fallback={<p className="shell" role="status">Abrindo a floresta encantada…</p>}>
+              <ForestArrival onReturnToEntrance={reopenEntrance} />
+            </Suspense>
+          ) : (
           <>
             <section ref={hero} id="inicio" className="hero" tabIndex={-1} aria-labelledby="hero-title">
               <HeroBackdrop hero={hero} />
@@ -216,5 +237,3 @@ function App() {
 }
 
 export default App
-
-
