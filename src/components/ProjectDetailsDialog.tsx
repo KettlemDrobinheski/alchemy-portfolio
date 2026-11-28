@@ -38,14 +38,17 @@ export function ProjectDetailsDialog({ project, trigger, onClose }: {
   useLayoutEffect(() => {
     const front = cardFace.current
     const original = trigger.closest('.project-card')
-    if (!showFlight || !front || !original) return
+    if (!front || !original) return
 
     const clone = original.cloneNode(true) as HTMLElement
     clone.querySelector('.project-card__details-trigger')?.remove()
+    clone.querySelectorAll('img[loading="lazy"]').forEach((image) => {
+      image.setAttribute('loading', 'eager')
+    })
     clone.inert = true
     front.replaceChildren(clone)
     return () => front.replaceChildren()
-  }, [showFlight, trigger])
+  }, [Seal, trigger])
 
   useEffect(() => {
     if (phase === 'open') return
@@ -80,12 +83,12 @@ export function ProjectDetailsDialog({ project, trigger, onClose }: {
         if (phase === 'open' && event.target === event.currentTarget) requestClose()
       }}>
       <CursorStars />
-      {flight && Seal && showFlight && (
-        <div className="project-card-flight" aria-hidden="true" style={{
+      {Seal && (
+        <div className="project-card-flight" aria-hidden="true" hidden={!showFlight} style={flight ? {
           left: flight.left, top: flight.top, width: flight.width, height: flight.height,
           '--flight-x': `${window.innerWidth / 2 - flight.left - flight.width / 2}px`,
           '--flight-y': `${window.innerHeight / 2 - flight.top - flight.height / 2}px`,
-        } as CSSProperties} onAnimationEnd={(event) => {
+        } as CSSProperties : undefined} onAnimationEnd={(event) => {
           if (event.target !== event.currentTarget) return
           if (phase === 'opening' && event.animationName === 'project-flight') setPhase('open')
           else if (phase === 'closing' && event.animationName === 'project-flight-return') dialog.current?.close()

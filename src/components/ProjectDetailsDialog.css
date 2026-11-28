@@ -387,7 +387,7 @@ html:has(.project-details-dialog[open]) { overflow: hidden; scrollbar-gutter: st
 
 @media (prefers-reduced-motion: no-preference) {
   .project-details-dialog[data-phase="open"] .project-details-panel { animation: project-details-arrive .24s ease-out both; }
-  .project-details-dialog[data-phase="closing"] .project-details-panel { animation: project-details-dismiss .22s ease-in both; }
+  .project-details-dialog[data-phase="closing"] .project-details-panel { animation: project-details-dismiss .22s ease-out both; }
   .project-card-flight { --flight-time: .5s; animation: project-flight var(--flight-time) ease-in-out both; }
   .project-card-flight__turn { animation: project-flip var(--flight-time) ease-in-out both; }
   [data-phase="closing"] .project-card-flight {
