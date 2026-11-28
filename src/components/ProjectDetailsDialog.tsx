@@ -87,8 +87,8 @@ export function ProjectDetailsDialog({ project, trigger, onClose }: {
           '--flight-y': `${window.innerHeight / 2 - flight.top - flight.height / 2}px`,
         } as CSSProperties} onAnimationEnd={(event) => {
           if (event.target !== event.currentTarget) return
-          if (phase === 'opening') setPhase('open')
-          else if (phase === 'closing') dialog.current?.close()
+          if (phase === 'opening' && event.animationName === 'project-flight') setPhase('open')
+          else if (phase === 'closing' && event.animationName === 'project-flight-return') dialog.current?.close()
         }}>
           <div className="project-card-flight__turn">
             <div ref={cardFace} className="project-card-flight__front" />
@@ -112,9 +112,7 @@ export function ProjectDetailsDialog({ project, trigger, onClose }: {
           <path d="M43 48l4 6-4 6-4-6 4-6ZM22 43v15m-5-8h10M116 79l9 14h-18Z" />
         </svg>
         <button ref={closeButton} className="project-details-close" type="button" aria-label="Fechar detalhes do projeto"
-          onClick={() => {
-            if (phase === 'open') requestClose()
-          }}>
+          onClick={requestClose}>
           <X size={20} aria-hidden="true" />
         </button>
         <div className="project-details-content" role="region" aria-labelledby={titleId} tabIndex={0} inert={phase !== 'open'}>
